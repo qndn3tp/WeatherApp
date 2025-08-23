@@ -1,0 +1,16 @@
+# 이 워크플로우의 이름
+name: My First iOS Build
+
+# 언제 실행할지 정하기
+on:
+  push:
+    branches: [ main ]
+
+# 할 일들
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - name: 안녕하세요!
+      run: echo "iOS CI/CD 시작합니다!"
