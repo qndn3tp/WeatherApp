@@ -131,7 +131,6 @@
 				792289A42E3A3FAC001B2919 /* Weather */,
 				792289B52E3A3FAD001B2919 /* WeatherTests */,
 				792289BF2E3A3FAD001B2919 /* WeatherUITests */,
-				79D087FB2E404EF600C39C09 /* WeatherWidget */,
 				79D087F62E404EF600C39C09 /* Frameworks */,
 				792289A32E3A3FAC001B2919 /* Products */,
 			);
@@ -192,6 +191,7 @@
 			children = (
 				79D087F72E404EF600C39C09 /* WidgetKit.framework */,
 				79D087F92E404EF600C39C09 /* SwiftUI.framework */,
+				79D087FB2E404EF600C39C09 /* WeatherWidget */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
