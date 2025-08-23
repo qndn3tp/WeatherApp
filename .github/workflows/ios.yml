@@ -1,5 +1,5 @@
 # 이 워크플로우의 이름
-name: My First iOS Build
+name: iOS Build Test
 
 # 언제 실행할지 정하기
 on:
@@ -12,5 +12,34 @@ jobs:
     runs-on: macos-latest
     
     steps:
-    - name: 안녕하세요!
-      run: echo "iOS CI/CD 시작합니다!"
+    # 1단계: 코드 다운로드
+    - name: 📥 코드 다운로드하기
+      uses: actions/checkout@v4
+      
+    # 2단계: 뭐가 다운로드 됐는지 확인
+    - name: 📂 프로젝트 파일 확인하기
+      run: |
+        echo "=== 현재 폴더에 있는 파일들 ==="
+        ls -la
+        echo ""
+        echo "=== .xcodeproj 파일 찾기 ==="
+        find . -name "*.xcodeproj"
+        echo ""
+        echo "=== .xcworkspace 파일 찾기 ==="
+        find . -name "*.xcworkspace"
+    
+    # 3단계: Xcode 버전 확인
+    - name: 🔍 Xcode 정보 확인
+      run: |
+        echo "=== Xcode 버전 ==="
+        xcodebuild -version
+        echo ""
+        echo "=== 사용 가능한 시뮬레이터 ==="
+        xcrun simctl list devices available
+    
+    # 4단계: 프로젝트 스킴 확인 (일단 주석처리)
+    # - name: 📋 프로젝트 스킴 확인
+    #   run: xcodebuild -list
+    
+    - name: 🎉 준비 완료!
+      run: echo "코드 다운로드와 환경 확인이 완료되었습니다!"
