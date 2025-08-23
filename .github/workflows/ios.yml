@@ -19,7 +19,6 @@ jobs:
     # 2단계: Xcode 설정
     - name: ⚙️ Xcode 설정
       run: |
-        sudo xcode-select -switch /Applications/Xcode_15.0.app/Contents/Developer
         echo "=== Xcode 버전 ===" 
         xcodebuild -version
         echo ""
