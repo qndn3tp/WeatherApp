@@ -21,7 +21,7 @@ jobs:
     - name: ⚙️ Xcode 16.0 사용      
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.0'
+        xcode-version: '16.2'
 
     # 3단계: Podfile이 있을 경우 의존성 설치
     - name: 📦 의존성 확인 및 설치
