@@ -43,7 +43,6 @@
 		792289C02E3A3FAD001B2919 /* WeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITests.swift; sourceTree = "<group>"; };
 		792289C22E3A3FAD001B2919 /* WeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		79A8CF1C2E4257F300FA2E61 /* Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Weather.entitlements; sourceTree = "<group>"; };
-		79D087F72E404EF600C39C09 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		79D087F92E404EF600C39C09 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -141,7 +140,6 @@
 		79D087F62E404EF600C39C09 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				79D087F72E404EF600C39C09 /* WidgetKit.framework */,
 				79D087F92E404EF600C39C09 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
