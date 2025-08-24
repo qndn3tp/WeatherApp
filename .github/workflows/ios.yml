@@ -41,6 +41,14 @@ jobs:
           echo "Podfile 없음 - 순수 iOS 프로젝트입니다 ✅"
         fi
     
+    # 새로 추가된 단계: iOS 플랫폼 다운로드
+    - name: 📱 iOS 플랫폼 설치
+      run: |
+        echo "=== iOS 플랫폼 다운로드 시작 ==="
+        echo "약 5-10분 소요될 수 있습니다..."
+        sudo xcodebuild -downloadPlatform iOS
+        echo "=== iOS 플랫폼 설치 완료! ==="
+    
     # 5단계: Weather 앱 빌드
     - name: 🔨 Weather 앱 빌드하기
       run: |
