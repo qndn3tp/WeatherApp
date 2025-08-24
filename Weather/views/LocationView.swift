@@ -50,6 +50,7 @@ struct LocationView: View {
     // MARK: - Body
     var body: some View {
         VStack(spacing: 10) {
+            Text("hello")
             // 상단 날씨 정보들
             HStack(spacing: 0) {
                 ForEach(Array(weatherData.enumerated()), id: \.offset) { index, weather in
