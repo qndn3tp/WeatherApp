@@ -46,7 +46,7 @@ jobs:
      run: |
        echo "=== ⚡ Weather 앱 빌드 시작! (위젯 제외) ==="
        echo "Weather 앱 타겟만 빌드..."
-       xcodebuild build          -project Weather.xcodeproj          -target Weather          -destination "generic/platform=iOS Simulator"          -configuration Debug          CODE_SIGN_IDENTITY=""          CODE_SIGNING_REQUIRED=NO
+       xcodebuild build -project Weather.xcodeproj -scheme "Weather-AppOnly" -destination "generic/platform=iOS Simulator" -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO
        echo "=== ✅ Weather 앱 빌드 성공! ==="
    
    # 6단계: 성공 메시지!
