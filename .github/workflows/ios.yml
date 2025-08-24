@@ -9,29 +9,22 @@ on:
 # 할 일들
 jobs:
   build:
-    runs-on: macos-latest
+    # 🚨 수정된 부분: Xcode 16.0이 설치된 macos-14 러너를 사용하도록 변경
+    runs-on: macos-14 
     
     steps:
     # 1단계: 코드 다운로드
     - name: 📥 코드 다운로드하기
       uses: actions/checkout@v4
-    
-    # 2단계: Xcode 버전만 확인
-    - name: ⚙️ Xcode 확인
-      run: |
-        echo "=== Xcode 버전 ==="
-        xcodebuild -version
-        echo ""
-        echo "=== 빌드 시작! ==="
-    
-    # 3단계: 프로젝트 정보 확인
-    - name: 📋 Weather 프로젝트 스킴 확인
-      run: |
-        echo "=== Weather.xcodeproj 스킴 정보 ==="
-        xcodebuild -list -project Weather.xcodeproj
-    
-    # 4단계: 의존성 확인
-    - name: 📦 의존성 확인
+
+    # 2단계: Xcode 16.x 버전 사용 설정
+    - name: ⚙️ Xcode 16.0 사용      
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '16.0'
+
+    # 3단계: Podfile이 있을 경우 의존성 설치
+    - name: 📦 의존성 확인 및 설치
       run: |
         if [ -f "Podfile" ]; then
           echo "Podfile 발견! CocoaPods 설치 중..."
@@ -40,17 +33,9 @@ jobs:
         else
           echo "Podfile 없음 - 순수 iOS 프로젝트입니다 ✅"
         fi
-    
-    # 새로 추가된 단계: iOS 플랫폼 다운로드
-    - name: 📱 iOS 플랫폼 설치
-      run: |
-        echo "=== iOS 플랫폼 다운로드 시작 ==="
-        echo "약 5-10분 소요될 수 있습니다..."
-        sudo xcodebuild -downloadPlatform iOS
-        echo "=== iOS 플랫폼 설치 완료! ==="
-    
-    # 5단계: Weather 앱 빌드
-    - name: 🔨 Weather 앱 빌드하기
+
+    # 4단계: 빌드
+    - name: 🔨 Weather 앱 빌드하기      
       run: |
         echo "=== ⚡ Weather 앱 빌드 시작! ==="
         echo "사용 가능한 시뮬레이터 확인 중..."
@@ -58,16 +43,9 @@ jobs:
         echo ""
         echo "Weather 앱 빌드 중..."
         xcodebuild build           -project Weather.xcodeproj           -scheme Weather           -destination "generic/platform=iOS Simulator"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO           ONLY_ACTIVE_ARCH=YES
-        echo "=== ✅ Weather 앱 빌드 성공! ==="
-    
-    # 6단계: 성공 메시지!
-    - name: 🎉 완료!
+        
+    # 5단계: 성공 메시지
+    - name: 🎉 빌드 완료!
       run: |
         echo "🎉🎉🎉 축하합니다! 🎉🎉🎉"
-        echo ""
-        echo "✅ Weather 앱이 성공적으로 빌드되었습니다!"
-        echo "✅ 코드에 컴파일 에러가 없습니다!"
-        echo "✅ 프로젝트 설정이 올바릅니다!"
-        echo "✅ iOS 시뮬레이터에서 실행 가능합니다!"
-        echo ""
-        echo "🚀 이제 진짜 iOS 개발자처럼 CI/CD를 사용하고 있어요!"
+        echo "✅ Weather 앱 빌드가 성공했습니다!"
