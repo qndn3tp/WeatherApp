@@ -3,63 +3,61 @@ name: Weather App Build
 
 # 언제 실행할지 정하기
 on:
-  push:
-    branches: [ main ]
+ push:
+   branches: [ main ]
 
 # 할 일들
 jobs:
-  build:
-    runs-on: macos-latest
-    
-    steps:
-    # 1단계: 코드 다운로드
-    - name: 📥 코드 다운로드하기
-      uses: actions/checkout@v4
-      
-    # 2단계: Xcode 버전만 확인
-    - name: ⚙️ Xcode 확인
-      run: |
-        echo "=== Xcode 버전 ==="
-        xcodebuild -version
-        echo ""
-        echo "=== 빌드 시작! ==="
-      
-    # 3단계: 프로젝트 정보 확인
-    - name: 📋 Weather 프로젝트 스킴 확인
-      run: |
-        echo "=== Weather.xcodeproj 스킴 정보 ==="
-        xcodebuild -list -project Weather.xcodeproj
-    
-    # 4단계: 의존성 확인
-    - name: 📦 의존성 확인
-      run: |
-        if [ -f "Podfile" ]; then
-          echo "Podfile 발견! CocoaPods 설치 중..."
-          sudo gem install cocoapods
-          pod install
-        else
-          echo "Podfile 없음 - 순수 iOS 프로젝트입니다 ✅"
-        fi
-    
-    # 5단계: 가장 간단한 방법으로 빌드
-    - name: 🔨 Weather 앱 빌드하기
-      run: |
-        echo "=== ⚡ Weather 앱 빌드 시작! ==="
-        
-        # 방법 1: Generic iOS Simulator (가장 안정적)
-        echo "Generic iOS Simulator로 빌드..."
-        xcodebuild build           -project Weather.xcodeproj           -scheme Weather           -destination "generic/platform=iOS Simulator"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO
-        
-        echo "=== ✅ 빌드 성공! ==="
-    
-    # 6단계: 성공 메시지!
-    - name: 🎉 완료!
-      run: |
-        echo "🎉🎉🎉 축하합니다! 🎉🎉🎉"
-        echo ""
-        echo "✅ Weather 앱이 성공적으로 빌드되었습니다!"
-        echo "✅ 코드에 컴파일 에러가 없습니다!"
-        echo "✅ 프로젝트 설정이 올바릅니다!"
-        echo "✅ iOS 시뮬레이터에서 실행 가능합니다!"
-        echo ""
-        echo "🚀 이제 진짜 iOS 개발자처럼 CI/CD를 사용하고 있어요!"
+ build:
+   runs-on: macos-latest
+   
+   steps:
+   # 1단계: 코드 다운로드
+   - name: 📥 코드 다운로드하기
+     uses: actions/checkout@v4
+   
+   # 2단계: Xcode 버전만 확인
+   - name: ⚙️ Xcode 확인
+     run: |
+       echo "=== Xcode 버전 ==="
+       xcodebuild -version
+       echo ""
+       echo "=== 빌드 시작! ==="
+   
+   # 3단계: 프로젝트 정보 확인
+   - name: 📋 Weather 프로젝트 스킴 확인
+     run: |
+       echo "=== Weather.xcodeproj 스킴 정보 ==="
+       xcodebuild -list -project Weather.xcodeproj
+   
+   # 4단계: 의존성 확인
+   - name: 📦 의존성 확인
+     run: |
+       if [ -f "Podfile" ]; then
+         echo "Podfile 발견! CocoaPods 설치 중..."
+         sudo gem install cocoapods
+         pod install
+       else
+         echo "Podfile 없음 - 순수 iOS 프로젝트입니다 ✅"
+       fi
+   
+   # 5단계: Weather 앱만 빌드 (위젯 제외)
+   - name: 🔨 Weather 앱만 빌드하기 (위젯 제외)
+     run: |
+       echo "=== ⚡ Weather 앱 빌드 시작! (위젯 제외) ==="
+       echo "Weather 앱 타겟만 빌드..."
+       xcodebuild build          -project Weather.xcodeproj          -target Weather          -destination "generic/platform=iOS Simulator"          -configuration Debug          CODE_SIGN_IDENTITY=""          CODE_SIGNING_REQUIRED=NO
+       echo "=== ✅ Weather 앱 빌드 성공! ==="
+   
+   # 6단계: 성공 메시지!
+   - name: 🎉 완료!
+     run: |
+       echo "🎉🎉🎉 축하합니다! 🎉🎉🎉"
+       echo ""
+       echo "✅ Weather 앱이 성공적으로 빌드되었습니다!"
+       echo "✅ 코드에 컴파일 에러가 없습니다!"
+       echo "✅ 프로젝트 설정이 올바릅니다!"
+       echo "✅ iOS 시뮬레이터에서 실행 가능합니다!"
+       echo ""
+       echo "📝 참고: 위젯은 제외하고 메인 앱만 빌드했습니다."
+       echo "🚀 이제 진짜 iOS 개발자처럼 CI/CD를 사용하고 있어요!"
