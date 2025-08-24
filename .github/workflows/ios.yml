@@ -45,8 +45,11 @@ jobs:
     - name: 🔨 Weather 앱 빌드하기
       run: |
         echo "=== ⚡ Weather 앱 빌드 시작! ==="
+        echo "사용 가능한 시뮬레이터 확인 중..."
+        xcrun simctl list devices available
+        echo ""
         echo "Weather 앱 빌드 중..."
-        xcodebuild build           -project Weather.xcodeproj           -scheme Weather           -destination "platform=iOS Simulator,name=iPhone 15 Pro"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO           ONLY_ACTIVE_ARCH=YES
+        xcodebuild build           -project Weather.xcodeproj           -scheme Weather           -destination "generic/platform=iOS Simulator"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO           ONLY_ACTIVE_ARCH=YES
         echo "=== ✅ Weather 앱 빌드 성공! ==="
     
     # 6단계: 성공 메시지!
