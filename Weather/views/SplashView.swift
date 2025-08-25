@@ -24,7 +24,7 @@ struct SplashView: View {
                     }
             } else {
                 // 로딩 완료 후 표시할 메인 화면
-                ContentView(locationManager: locationManager)                
+                ContentView(locationManager: locationManager)
             }
         }
         .onAppear {

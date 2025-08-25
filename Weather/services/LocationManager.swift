@@ -23,7 +23,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyReduced // 배터리 효율을 위해 정확도를 낮춥니다.
         locationManager.requestWhenInUseAuthorization() // 앱 사용 중 위치 권한 요청
     }
-    
+
     // MARK: - 위치 업데이트 시작을 위한 공개 메서드 추가
     public func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
@@ -42,16 +42,16 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         guard let location = locations.first else { return }
 
         // MARK: - 위도/경도로 도시 이름을 가져오는 역지오코딩 (Reverse Geocoding)
-        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, _) in
             guard let self = self, let placemark = placemarks?.first else { return }
-            
+
             // 도시 이름(locality)을 추출
             if let city = placemark.locality {
                 self.cityName = city
             } else {
                 self.cityName = "도시를 찾을 수 없음"
             }
-            
+
             // MARK: - 현재 위치의 시간 정보를 가져오는 부분
             if let timezone = placemark.timeZone {
                 let formatter = DateFormatter()
@@ -63,7 +63,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
-    
+
     // MARK: - 위치 업데이트 실패 시 호출됩니다.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("위치 업데이트 실패: \(error.localizedDescription)")

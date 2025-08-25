@@ -1,51 +1,106 @@
-# 이 워크플로우의 이름
-name: Weather App Build
+name: Weather App - Simple CI
 
-# 언제 실행할지 정하기
+# PR과 main 브랜치 푸시에서만 실행
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-# 할 일들
 jobs:
-  build:
-    # 🚨 수정된 부분: Xcode 16.0이 설치된 macos-14 러너를 사용하도록 변경
-    runs-on: macos-14 
+  # 코드 품질 + 빌드 체크 (단일 Job으로 간소화)
+  quality-and-build:
+    runs-on: macos-14
     
     steps:
-    # 1단계: 코드 다운로드
-    - name: 📥 코드 다운로드하기
+    # 1. 기본 설정
+    - name: 📥 코드 다운로드
       uses: actions/checkout@v4
-
-    # 2단계: Xcode 16.x 버전 사용 설정
-    - name: ⚙️ Xcode 16.0 사용      
+      
+    - name: ⚙️ Xcode 16.2 설정
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: '16.2'
 
-    # 3단계: Podfile이 있을 경우 의존성 설치
+    # 2. 의존성 설치
     - name: 📦 의존성 확인 및 설치
       run: |
         if [ -f "Podfile" ]; then
-          echo "Podfile 발견! CocoaPods 설치 중..."
+          echo "📦 CocoaPods 의존성 설치 중..."
           sudo gem install cocoapods
-          pod install
+          pod install --repo-update
         else
-          echo "Podfile 없음 - 순수 iOS 프로젝트입니다 ✅"
+          echo "✅ 순수 iOS 프로젝트 - CocoaPods 없음"
         fi
 
-    # 4단계: 빌드
-    - name: 🔨 Weather 앱 빌드하기      
+    # 3. 코드 품질 검사
+    - name: 🧹 SwiftLint 검사
       run: |
-        echo "=== ⚡ Weather 앱 빌드 시작! ==="
-        echo "사용 가능한 시뮬레이터 확인 중..."
-        xcrun simctl list devices available
-        echo ""
-        echo "Weather 앱 빌드 중..."
-        xcodebuild build           -project Weather.xcodeproj           -scheme Weather           -destination "generic/platform=iOS Simulator"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO           ONLY_ACTIVE_ARCH=YES
+        # SwiftLint가 설치되어 있지 않으면 설치
+        if ! command -v swiftlint &> /dev/null; then
+          echo "SwiftLint 설치 중..."
+          brew install swiftlint
+        fi
         
-    # 5단계: 성공 메시지
-    - name: 🎉 빌드 완료!
+        # 설정 파일이 있으면 사용, 없으면 기본 설정
+        echo "🧹 코드 스타일 검사 중..."
+        if [ -f ".swiftlint.yml" ]; then
+          swiftlint lint --config .swiftlint.yml
+        else
+          swiftlint lint
+        fi
+      # SwiftLint 에러가 있어도 빌드는 계속 진행
+      continue-on-error: true
+
+    # 4. 빌드 테스트
+    - name: 🔨 iOS 앱 빌드 테스트
       run: |
-        echo "🎉🎉🎉 축하합니다! 🎉🎉🎉"
-        echo "✅ Weather 앱 빌드가 성공했습니다!"
+        echo "🔨 Weather 앱 빌드 테스트 시작..."
+        
+        # 프로젝트 파일 자동 감지
+        if [ -f "Weather.xcworkspace" ]; then
+          PROJECT_FILE="Weather.xcworkspace"
+          BUILD_FLAG="-workspace"
+        else
+          PROJECT_FILE="Weather.xcodeproj" 
+          BUILD_FLAG="-project"
+        fi
+        
+        echo "📁 프로젝트 파일: $PROJECT_FILE"
+        echo "🎯 시뮬레이터에서 빌드 테스트 중..."
+        
+        # iOS 시뮬레이터용 빌드
+        xcodebuild clean build           $BUILD_FLAG "$PROJECT_FILE"           -scheme Weather           -destination "generic/platform=iOS Simulator"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO           ONLY_ACTIVE_ARCH=YES
+
+    # 5. 테스트 실행 (테스트 타겟이 있다면)
+    - name: 🧪 유닛 테스트 (있다면)
+      run: |
+        echo "🧪 유닛 테스트 확인 중..."
+        
+        # 프로젝트 파일 감지
+        if [ -f "Weather.xcworkspace" ]; then
+          PROJECT_FILE="Weather.xcworkspace"
+          BUILD_FLAG="-workspace"
+        else
+          PROJECT_FILE="Weather.xcodeproj" 
+          BUILD_FLAG="-project"
+        fi
+        
+        # 테스트 타겟이 있는지 확인
+        if xcodebuild -list $BUILD_FLAG "$PROJECT_FILE" | grep -q "Test"; then
+          echo "✅ 테스트 타겟 발견! 테스트 실행 중..."
+          xcodebuild test             $BUILD_FLAG "$PROJECT_FILE"             -scheme Weather             -destination "platform=iOS Simulator"             CODE_SIGN_IDENTITY=""             CODE_SIGNING_REQUIRED=NO
+        else
+          echo "ℹ️  테스트 타겟 없음 - 건너뜀"
+        fi
+      # 테스트 실패해도 워크플로우는 계속
+      continue-on-error: true
+
+    # 6. 성공 메시지
+    - name: 🎉 완료!
+      run: |
+        echo ""
+        echo "🎉✨🎉✨🎉✨🎉✨🎉✨🎉✨🎉"
+        echo "✅ Weather App CI 성공!"
+        echo "빌드 에러 없음"
+        echo "코드 품질 체크 완료"
