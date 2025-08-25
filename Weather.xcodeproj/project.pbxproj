@@ -279,7 +279,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		7977E0442E5C3F6900486EE0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -293,7 +292,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# SwiftLint가 설치되어 있는지 확인하고 실행\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# SwiftLint가 설치되어 있는지 확인하고 실행\nif which swiftlint >/dev/null; then\n  swiftlint lint --path \"${SRCROOT}/Weather\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -33,22 +33,24 @@ jobs:
           echo "✅ 순수 iOS 프로젝트 - CocoaPods 없음"
         fi
 
-    # 3. 코드 품질 검사
+   # 3. 코드 품질 검사
     - name: 🧹 SwiftLint 검사
       run: |
-        # SwiftLint가 설치되어 있지 않으면 설치
+        echo "🧹 CI 환경에서 코드 품질 최종 검증 중..."
+        
+        # SwiftLint 설치 (더 안정적인 방식)
         if ! command -v swiftlint &> /dev/null; then
-          echo "SwiftLint 설치 중..."
+          echo "📦 SwiftLint 설치 중..."
+          brew update
           brew install swiftlint
+        else
+          echo "✅ SwiftLint 이미 설치됨: $(swiftlint version)"
         fi
         
-        # 설정 파일이 있으면 사용, 없으면 기본 설정
-        echo "🧹 코드 스타일 검사 중..."
-        if [ -f ".swiftlint.yml" ]; then
-          swiftlint lint --config .swiftlint.yml
-        else
-          swiftlint lint
-        fi
+        # SwiftLint 실행
+        echo "🔍 코드 스타일 검사 시작..."
+        swiftlint lint --path "Weather"        
+        echo "✅ SwiftLint 검사 완료"
       # SwiftLint 에러가 있어도 빌드는 계속 진행
       continue-on-error: true
 
