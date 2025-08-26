@@ -29,7 +29,7 @@ jobs:
           if ! command -v swiftlint &> /dev/null; then
             brew install swiftlint
           fi
-          swiftlint lint --path "Weather"
+          swiftlint lint Weather
 
   test:
     runs-on: macos-14
