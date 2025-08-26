@@ -47,9 +47,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7970FF632E4DA6DD00E9FE67 /* views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = views; sourceTree = "<group>"; };
-		79CB34F92E4DB3B5006A2065 /* models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = models; sourceTree = "<group>"; };
-		79CB34FA2E4DB3C0006A2065 /* services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = services; sourceTree = "<group>"; };
+		7970FF632E4DA6DD00E9FE67 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		7977E0452E5C723400486EE0 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
+		79CB34F92E4DB3B5006A2065 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		79CB34FA2E4DB3C0006A2065 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +104,10 @@
 			children = (
 				792289A52E3A3FAC001B2919 /* WeatherApp.swift */,
 				79A8CF1C2E4257F300FA2E61 /* Weather.entitlements */,
-				7970FF632E4DA6DD00E9FE67 /* views */,
-				79CB34FA2E4DB3C0006A2065 /* services */,
-				79CB34F92E4DB3B5006A2065 /* models */,
+				7977E0452E5C723400486EE0 /* ViewModels */,
+				7970FF632E4DA6DD00E9FE67 /* Views */,
+				79CB34FA2E4DB3C0006A2065 /* Services */,
+				79CB34F92E4DB3B5006A2065 /* Models */,
 				792289A92E3A3FAD001B2919 /* Assets.xcassets */,
 				792289AB2E3A3FAD001B2919 /* Preview Content */,
 			);
@@ -161,9 +163,10 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				7970FF632E4DA6DD00E9FE67 /* views */,
-				79CB34F92E4DB3B5006A2065 /* models */,
-				79CB34FA2E4DB3C0006A2065 /* services */,
+				7970FF632E4DA6DD00E9FE67 /* Views */,
+				7977E0452E5C723400486EE0 /* ViewModels */,
+				79CB34F92E4DB3B5006A2065 /* Models */,
+				79CB34FA2E4DB3C0006A2065 /* Services */,
 			);
 			name = Weather;
 			productName = Weather;
