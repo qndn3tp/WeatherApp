@@ -1,108 +1,68 @@
-name: Weather App - Simple CI
+name: CI
 
-# PR과 main 브랜치 푸시에서만 실행
 on:
-  push:
-    branches: [ main ]
   pull_request:
+  push:
     branches: [ main ]
 
 jobs:
-  # 코드 품질 + 빌드 체크 (단일 Job으로 간소화)
-  quality-and-build:
+  lint:
     runs-on: macos-14
-    
     steps:
-    # 1. 기본 설정
-    - name: 📥 코드 다운로드
-      uses: actions/checkout@v4
-      
-    - name: ⚙️ Xcode 16.2 설정
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '16.2'
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.2'
+          
+      - name: Install dependencies
+        run: |
+          if [ -f "Podfile" ]; then
+            sudo gem install cocoapods
+            pod install --repo-update
+          fi
+          
+      - name: Lint code for consistent style
+        run: |
+          if ! command -v swiftlint &> /dev/null; then
+            brew install swiftlint
+          fi
+          swiftlint lint --path "Weather"
 
-    # 2. 의존성 설치
-    - name: 📦 의존성 확인 및 설치
-      run: |
-        if [ -f "Podfile" ]; then
-          echo "📦 CocoaPods 의존성 설치 중..."
-          sudo gem install cocoapods
-          pod install --repo-update
-        else
-          echo "✅ 순수 iOS 프로젝트 - CocoaPods 없음"
-        fi
-
-   # 3. 코드 품질 검사
-    - name: 🧹 SwiftLint 검사
-      run: |
-        echo "🧹 CI 환경에서 코드 품질 최종 검증 중..."
+  test:
+    runs-on: macos-14
+    needs: [lint]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
         
-        # SwiftLint 설치 (더 안정적인 방식)
-        if ! command -v swiftlint &> /dev/null; then
-          echo "📦 SwiftLint 설치 중..."
-          brew update
-          brew install swiftlint
-        else
-          echo "✅ SwiftLint 이미 설치됨: $(swiftlint version)"
-        fi
-        
-        # SwiftLint 실행
-        echo "🔍 코드 스타일 검사 시작..."
-        swiftlint lint --path "Weather"        
-        echo "✅ SwiftLint 검사 완료"
-      # SwiftLint 에러가 있어도 빌드는 계속 진행
-      continue-on-error: true
-
-    # 4. 빌드 테스트
-    - name: 🔨 iOS 앱 빌드 테스트
-      run: |
-        echo "🔨 Weather 앱 빌드 테스트 시작..."
-        
-        # 프로젝트 파일 자동 감지
-        if [ -f "Weather.xcworkspace" ]; then
-          PROJECT_FILE="Weather.xcworkspace"
-          BUILD_FLAG="-workspace"
-        else
-          PROJECT_FILE="Weather.xcodeproj" 
-          BUILD_FLAG="-project"
-        fi
-        
-        echo "📁 프로젝트 파일: $PROJECT_FILE"
-        echo "🎯 시뮬레이터에서 빌드 테스트 중..."
-        
-        # iOS 시뮬레이터용 빌드
-        xcodebuild clean build           $BUILD_FLAG "$PROJECT_FILE"           -scheme Weather           -destination "generic/platform=iOS Simulator"           -configuration Debug           CODE_SIGN_IDENTITY=""           CODE_SIGNING_REQUIRED=NO           ONLY_ACTIVE_ARCH=YES
-
-    # 5. 테스트 실행 (테스트 타겟이 있다면)
-    - name: 🧪 유닛 테스트 (있다면)
-      run: |
-        echo "🧪 유닛 테스트 확인 중..."
-        
-        # 프로젝트 파일 감지
-        if [ -f "Weather.xcworkspace" ]; then
-          PROJECT_FILE="Weather.xcworkspace"
-          BUILD_FLAG="-workspace"
-        else
-          PROJECT_FILE="Weather.xcodeproj" 
-          BUILD_FLAG="-project"
-        fi
-        
-        # 테스트 타겟이 있는지 확인
-        if xcodebuild -list $BUILD_FLAG "$PROJECT_FILE" | grep -q "Test"; then
-          echo "✅ 테스트 타겟 발견! 테스트 실행 중..."
-          xcodebuild test             $BUILD_FLAG "$PROJECT_FILE"             -scheme Weather             -destination "platform=iOS Simulator,name=iPhone 16,OS=18.1"             CODE_SIGN_IDENTITY=""             CODE_SIGNING_REQUIRED=NO
-        else
-          echo "ℹ️  테스트 타겟 없음 - 건너뜀"
-        fi
-      # 테스트 실패해도 워크플로우는 계속
-      continue-on-error: true
-
-    # 6. 성공 메시지
-    - name: 🎉 완료!
-      run: |
-        echo ""
-        echo "🎉✨🎉✨🎉✨🎉✨🎉✨🎉✨🎉"
-        echo "✅ Weather App CI 성공!"
-        echo "빌드 에러 없음"
-        echo "코드 품질 체크 완료"
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.2'
+          
+      - name: Install dependencies
+        run: |
+          if [ -f "Podfile" ]; then
+            sudo gem install cocoapods
+            pod install --repo-update
+          fi
+          
+      - name: Run tests
+        run: |
+          if [ -f "Weather.xcworkspace" ]; then
+            PROJECT_FILE="Weather.xcworkspace"
+            BUILD_FLAG="-workspace"
+          else
+            PROJECT_FILE="Weather.xcodeproj"
+            BUILD_FLAG="-project"
+          fi
+          
+          xcodebuild clean test \
+            $BUILD_FLAG "$PROJECT_FILE" \
+            -scheme Weather \
+            -destination "platform=iOS Simulator,name=iPhone 16,OS=18.1" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
