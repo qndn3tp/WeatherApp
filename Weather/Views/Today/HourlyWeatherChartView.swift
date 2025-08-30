@@ -20,7 +20,10 @@ struct HourlyWeatherChartView: View {
         /// 차트용 데이터 (예시: 24시간 데이터)
         hour: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
         hourlyTemp: [20, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 27, 26, 25, 24, 23, 22, 21, 20, 20, 19, 19, 19, 18],
-        hourlyWeatherIcon: ["moon", "moon", "cloud", "cloud", "cloud", "sun.min", "sun.max", "sun.max", "sun.max", "sun.max", "sun.max", "sun.max", "sun.max", "cloud.sun", "cloud.sun", "cloud", "cloud", "cloud", "cloud", "cloud", "cloud", "cloud", "cloud", "cloud"],
+        hourlyWeatherIcon: ["moon", "moon", "cloud", "cloud", "cloud", "sun.min", "sun.max", "sun.max",
+                            "sun.max", "sun.max", "sun.max", "sun.max", "sun.max", "cloud.sun",
+                            "cloud.sun", "cloud", "cloud", "cloud", "cloud", "cloud", "cloud",
+                            "cloud", "cloud", "cloud"],
         hourlyRainPop: [0, 0, 0, 30, 30, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         hourlyRainAmounts: [0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         hourlyHumidity: [80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 99, 98, 97, 96]
