@@ -19,7 +19,7 @@ struct CurrentWeatherView: View {
         tempDiffFromYesterday: -2,
         highTemp: 34,
         lowTemp: 20,
-        weatherComments: ["심한 일교차", "겉옷은 필수!"],
+        weatherComments: ["심한 일교차", "겉옷은 필수!"]
     )
     
     var tempDifferenceComment: String {
