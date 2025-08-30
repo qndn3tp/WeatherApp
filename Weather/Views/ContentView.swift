@@ -19,26 +19,26 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            LocationView()
+            WeeklyView()
                 .tabItem {
                     Image(systemName: "location")
-                    Text("Location")
+                    Text("Weekly")
                 }
                 .tag(Tab.location)
                 .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
 
-            HomeView(locationManager: locationManager)
+            TodayView(locationManager: locationManager)
                 .tabItem {
                     Image(systemName: "house")
-                    Text("Home")
+                    Text("Today")
                 }
                 .tag(Tab.home)
                 .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
 
-            SettingsView()
+            NotificationsView()
                 .tabItem {
                     Image(systemName: "gearshape")
-                    Text("Settings")
+                    Text("Notifications")
                 }
                 .tag(Tab.settings)
                 .background(Color.green.ignoresSafeArea())
