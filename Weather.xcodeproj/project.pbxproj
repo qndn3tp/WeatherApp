@@ -49,6 +49,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7970FF632E4DA6DD00E9FE67 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		7977E0452E5C723400486EE0 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
+		799C8E102E62DCF3005C851D /* DesignSystem */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DesignSystem; sourceTree = "<group>"; };
 		79CB34F92E4DB3B5006A2065 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
 		79CB34FA2E4DB3C0006A2065 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -104,11 +105,12 @@
 			children = (
 				792289A52E3A3FAC001B2919 /* WeatherApp.swift */,
 				79A8CF1C2E4257F300FA2E61 /* Weather.entitlements */,
-				7977E0452E5C723400486EE0 /* ViewModels */,
 				7970FF632E4DA6DD00E9FE67 /* Views */,
-				79CB34FA2E4DB3C0006A2065 /* Services */,
 				79CB34F92E4DB3B5006A2065 /* Models */,
+				7977E0452E5C723400486EE0 /* ViewModels */,
+				79CB34FA2E4DB3C0006A2065 /* Services */,
 				792289A92E3A3FAD001B2919 /* Assets.xcassets */,
+				799C8E102E62DCF3005C851D /* DesignSystem */,
 				792289AB2E3A3FAD001B2919 /* Preview Content */,
 			);
 			path = Weather;
@@ -165,6 +167,7 @@
 			fileSystemSynchronizedGroups = (
 				7970FF632E4DA6DD00E9FE67 /* Views */,
 				7977E0452E5C723400486EE0 /* ViewModels */,
+				799C8E102E62DCF3005C851D /* DesignSystem */,
 				79CB34F92E4DB3B5006A2065 /* Models */,
 				79CB34FA2E4DB3C0006A2065 /* Services */,
 			);
