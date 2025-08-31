@@ -46,10 +46,13 @@ struct TodayView: View {
             CurrentWeatherView()
 
             // 데일리 날씨 부가정보
-            WeatherInfoCardsView()
+            CurrentWeatherDetailView()
             
             // 시간대별 날씨 정보
             HourlyWeatherChartView()
+            
+            // 과거 날씨(작년)
+            LastYearWeatherView()
         }
     }
 }
