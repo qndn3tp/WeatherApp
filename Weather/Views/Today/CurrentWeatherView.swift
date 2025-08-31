@@ -34,41 +34,47 @@ struct CurrentWeatherView: View {
     
     // MARK: - Body
     var body: some View {
-        HStack {
+        HStack(spacing: 48) {
             // 왼쪽: 아바타
             Image("avatar")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 200, height: 200)
+                .frame(width: 70, height: 190)
 
             // 오른쪽: 현재 날씨 정보
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .trailing, spacing: 5) {
                 // 상단: 날씨 아이콘과 상태
-                HStack(spacing: 5) {
+                HStack(spacing: 10) {
                     Image(systemName: currentWeatherData.weatherIcon)
                         .font(.system(size: 20))
                         .foregroundColor(.gray)
                     Text(currentWeatherData.weatherCondition)
-                        .font(.system(size: 20))
+                        .font(.bodySmall)
                         .foregroundColor(.gray)
                 }
+                .padding(.bottom, 15)
 
                 // 중간: 현재 온도
                 Text("\(currentWeatherData.mainTemp)°")
-                    .font(.system(size: 50, weight: .thin))
+                    .font(.weatherLarge)
 
                 // 하단: 부가 정보 (어제 비교, 최고/최저 온도, 오늘 날씨 한줄 코멘트)
-                VStack(alignment: .leading, spacing: 5) {
                     Text(tempDifferenceComment)
-                    Text("최고 \(currentWeatherData.highTemp)° 최저 \(currentWeatherData.lowTemp)°")
+                        .font(.bodySmall)
+                    HStack(alignment: .bottom, spacing: 2) {
+                        Text("최고").font(.bodySmall)
+                        Text("\(currentWeatherData.highTemp)°").font(.bodyMedium)
+                        Text("최저").font(.bodySmall)
+                        Text("\(currentWeatherData.lowTemp)°").font(.bodyMedium)
+                    }
+                    .padding(.bottom, 14)
                     Text(currentWeatherData.weatherComments.joined(separator: ", "))
-                        .font(.system(size: 15))
+                        .font(.captionMeidum)
                         .fixedSize(horizontal: true, vertical: false)
                         .padding(.horizontal, 10)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 4)
                         .background(.gray.opacity(0.2))
                         .clipShape(RoundedRectangle(cornerRadius: 18))
-                }
             }
         }
     }

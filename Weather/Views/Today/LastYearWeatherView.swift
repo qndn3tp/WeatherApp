@@ -26,6 +26,8 @@ struct LastYearWeatherView: View {
                 }
             }
         }
+        .padding(.horizontal, 26)
+        .padding(.vertical, 15)
     }
 }
 
