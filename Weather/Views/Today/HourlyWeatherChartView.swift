@@ -48,65 +48,77 @@ struct HourlyWeatherChartView: View {
             ZStack(alignment: .topLeading) {
                 HStack(spacing: 0) {
                     // 왼쪽 라벨 영역 (고정)
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 10) {
                         // 시간
                         Text("오늘")
-                            .font(.system(size: 13))
+                            .font(.captionLarge)
                             .foregroundColor(.white)
-                            .frame(height: 18)
-                            .padding(.vertical, 2)
-                            .padding(.horizontal, 5)
+                            .frame(width: 25, height: 18)
                             .background(.black.opacity(0.7))
                             .clipShape(Capsule())
-
+                        
+                        // 날씨 아이콘
                         Spacer()
                             .frame(height: 30)
-
+                            .padding(.bottom, 10)
+                        
+                        // 기온
                         Spacer()
                             .frame(height: 30)
 
                         // 강수확률
-                        Text("강수확률")
-                            .font(.system(size: 16))
+                        Spacer()
+                            .frame(height: 6)
 
                         // 강수량
-                        Text("강수량")
-                            .font(.system(size: 16))
+                        HStack(spacing: 2) {
+                            Text("강수량")
+                                .font(.bodySmall)
+                            Text("mm")
+                                .font(.captionSmall)
+                        }
+                        
                         // 습도
-                        Text("습도")
-                            .font(.system(size: 16))
+                        HStack(spacing: 2) {
+                            Text("습도")
+                                .font(.bodySmall)
+                            Text("%")
+                                .font(.captionSmall)
+                        }
                     }
                     .frame(width: 60)
 
                     // 시간별 차트
                     ForEach(Array(hourlyWeatherData.hourlyTemp.enumerated()), id: \.offset) { index, _ in
-                        VStack(spacing: 8) {
+                        VStack(spacing: 10) {
                             // 시간
                             Text("\(hourlyWeatherData.hour[index])시")
-                                .font(.system(size: 13))
+                                .font(.captionLarge)
                                 .frame(height: 18)
 
                             // 날씨 아이콘
                             Image(systemName: hourlyWeatherData.hourlyWeatherIcon[index])
                                 .font(.system(size: 20))
                                 .frame(height: 30)
+                                .padding(.bottom, 10)
 
                             // 기온
                             Text("\(hourlyWeatherData.hourlyTemp[index])°")
-                                .font(.system(size: 16))
+                                .font(.bodySmall)
                                 .frame(height: 30)
 
                             // 강수확률
                             Text("\(hourlyWeatherData.hourlyRainPop[index])%")
-                                .font(.system(size: 16))
+                                .font(.captionLarge)
+                                .frame(height: 6)
 
                             // 강수량
                             Text("\(hourlyWeatherData.hourlyRainAmounts[index])")
-                                .font(.system(size: 16))
+                                .font(.bodySmall)
 
                             // 습도
                             Text("\(hourlyWeatherData.hourlyHumidity[index])")
-                                .font(.system(size: 16))
+                                .font(.bodySmall)
                         }
                         .frame(width: UIScreen.main.bounds.width / 7)
                     }
@@ -122,13 +134,15 @@ struct HourlyWeatherChartView: View {
                 }
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
-                .frame(height: 8 + 30 + 8) /// spacing + spacer + 기온높이 + spacing = 46
+                .frame(height: 10 + 30 + 10) /// spacing  + 기온높이 + spacing
                 .offset(
-                    x: 60,            /// 라벨 영역 너비만큼 오른쪽으로 이동
-                    y: 18 + 8 + 30    /// 시간 + spacing + 아이콘 높이 = 56px
+                    x: 60,                 /// 라벨 영역 너비만큼 오른쪽으로 이동
+                    y: 18 + 10 + 30  + 5   /// 시간 + spacing + 아이콘 높이 + (아이콘-기온 padding) / 2
                 )
             }
         }
+        .padding(.horizontal, 32)
+        .padding(.vertical, 15)
     }
 }
 

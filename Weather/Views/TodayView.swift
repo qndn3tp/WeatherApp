@@ -32,11 +32,13 @@ struct TodayView: View {
                 if locationViewModel.shouldShowLocationInfo {
                     VStack {
                         Text(locationViewModel.cityName ?? "")
-                            .font(.system(size: 20))
+                            .font(.headlineLarge)
                         Text(locationViewModel.currentTime ?? "")
+                            .font(.bodyLarge)
                     }
                 } else {
                     Text(locationViewModel.statusMessage)
+                        .font(.headlineLarge)
                 }
                 Spacer()
             }
