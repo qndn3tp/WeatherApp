@@ -40,7 +40,7 @@ struct CurrentWeatherView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 70, height: 190)
-
+            
             // 오른쪽: 현재 날씨 정보
             VStack(alignment: .trailing, spacing: 5) {
                 // 상단: 날씨 아이콘과 상태
@@ -53,28 +53,33 @@ struct CurrentWeatherView: View {
                         .foregroundColor(.gray)
                 }
                 .padding(.bottom, 15)
-
+                
                 // 중간: 현재 온도
                 Text("\(currentWeatherData.mainTemp)°")
                     .font(.weatherLarge)
-
+                
                 // 하단: 부가 정보 (어제 비교, 최고/최저 온도, 오늘 날씨 한줄 코멘트)
-                    Text(tempDifferenceComment)
-                        .font(.bodySmall)
-                    HStack(alignment: .bottom, spacing: 2) {
-                        Text("최고").font(.bodySmall)
-                        Text("\(currentWeatherData.highTemp)°").font(.bodyMedium)
-                        Text("최저").font(.bodySmall)
-                        Text("\(currentWeatherData.lowTemp)°").font(.bodyMedium)
-                    }
-                    .padding(.bottom, 14)
+                Text(tempDifferenceComment)
+                    .font(.bodySmall)
+                HStack(alignment: .bottom, spacing: 2) {
+                    Text("최고").font(.bodySmall)
+                    Text("\(currentWeatherData.highTemp)°").font(.bodyMedium)
+                    Text("최저").font(.bodySmall)
+                    Text("\(currentWeatherData.lowTemp)°").font(.bodyMedium)
+                }
+                .padding(.bottom, 14)
+                HStack(spacing: 3) {
                     Text(currentWeatherData.weatherComments.joined(separator: ", "))
-                        .font(.captionMeidum)
+                        .font(.captionMedium)
                         .fixedSize(horizontal: true, vertical: false)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 4)
                         .background(.gray.opacity(0.2))
                         .clipShape(RoundedRectangle(cornerRadius: 18))
+                    Image("icon_logo_bee")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                }
             }
         }
     }

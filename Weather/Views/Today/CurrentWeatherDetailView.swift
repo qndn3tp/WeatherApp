@@ -49,7 +49,7 @@ struct CurrentWeatherDetailCard: View {
             
             /// 하단: 라벨 (부가 설명)
             Text(weatherDetail.label)
-                .font(.captionMeidum)
+                .font(.captionMedium)
         }
         .frame(width: 70, height: 80)
         .background(Color.black.opacity(0.03))
