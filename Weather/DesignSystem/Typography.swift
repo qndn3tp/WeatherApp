@@ -33,6 +33,6 @@ extension Font {
     
     // Caption Styles
     static let captionLarge = Font.system(size: 8, weight: .regular)
-    static let captionMeidum = Font.system(size: 7, weight: .light)
+    static let captionMedium = Font.system(size: 7, weight: .light)
     static let captionSmall = Font.system(size: 6, weight: .light)
 }
