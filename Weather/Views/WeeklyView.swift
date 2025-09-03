@@ -17,6 +17,7 @@ struct WeeklyView: View {
     @StateObject private var locationViewModel: LocationViewModel
     
     // MARK: - Initialization
+    /// 위치 관리자 초기화
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
         self._locationViewModel = StateObject(wrappedValue: LocationViewModel(locationManager: locationManager))
@@ -28,33 +29,27 @@ struct WeeklyView: View {
             // 현재 위치 및 시간 정보
             LocationHeaderView(locationViewModel: locationViewModel)
             
-            // 상단
-            HStack(alignment: .bottom, spacing: 33) {
-                Image("avatar")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 70, height: 190)
-                
-                // 오른쪽: 이번달 weekly날씨 정보
-                Text("이번달 weekly날씨 정보")
-                    .frame(width: 187, height: 146)
-                    .background(.white)
-            }
-            .padding(.horizontal, 40)
-            VStack(alignment: .leading, spacing: 0) {
+            // 상단: 주간 날씨 코멘트
+            WeeklyWeatherCommentView()
+                .padding(.horizontal, 40)
+                .padding(.vertical, 20)
+            
+            // 중간: 주간 날씨 데이터 차트
+            VStack(alignment: .leading, spacing: 10) {
                 Text("주간 날씨")
                     .font(.titleSmall)
-                Text("주간 날씨 정보")
-                    .frame(width: 359, height: 300)
-                    .background(.white)
-                Text("유용한 정보")
-                    .font(.titleSmall)
-                Text("날씨에 따른 생활정보, 코디 팁 등 큐레이션")
-                    .font(.system(size: 14))
-                    .frame(width: 359, height: 100)
-                    .background(.white)
+                    .padding(.top, 15)
+                WeeklyWeatherView()
             }
             
+            // 하단: 주간 날씨 유용한 정보
+            VStack(alignment: .leading, spacing: 10) {
+                Text("유용한 정보")
+                    .font(.titleSmall)
+                    .padding(.top, 20)
+                Text("날씨에 따른 생활정보, 코디 팁 등 큐레이션")
+                    .font(.bodyMedium)
+            }
         }
         .padding(.horizontal, 20)
         .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
