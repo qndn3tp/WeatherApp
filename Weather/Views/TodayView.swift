@@ -6,7 +6,7 @@
 
 import SwiftUI
 
-// MARK: TodayView
+// MARK: 현재 날씨 뷰
 struct TodayView: View {
     
     // MARK: - Properties
@@ -26,29 +26,7 @@ struct TodayView: View {
     var body: some View {
         ScrollView {
             // 현재 위치 및 시간 정보
-            HStack {
-                Spacer()
-                // 조건부 렌더링: 위치 권한 상태에 따라 다른 UI 표시
-                if locationViewModel.shouldShowLocationInfo {
-                    VStack {
-                        HStack(spacing: 5) {
-                             Image("icon_location_pin")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 20, height: 20)
-                            Text(locationViewModel.cityName ?? "")
-                                .font(.headlineLarge)
-                        }
-                        Text(locationViewModel.currentTime ?? "")
-                            .font(.bodyLarge)
-                    }
-                } else {
-                    Text(locationViewModel.statusMessage)
-                        .font(.headlineLarge)
-                }
-                Spacer()
-            }
-            .padding()
+            LocationHeaderView(locationViewModel: locationViewModel)
 
             // 현재 날씨 정보
             CurrentWeatherView()
@@ -62,6 +40,7 @@ struct TodayView: View {
             // 과거 날씨(작년)
             LastYearWeatherView()
         }
+        .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
     }
 }
 
