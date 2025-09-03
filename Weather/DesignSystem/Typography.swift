@@ -22,17 +22,17 @@ extension Font {
     static let titleSmall = Font.system(size: 16, weight: .bold)
     
     // Body Styles
-    static let bodyLarge = Font.system(size: 17, weight: .regular)
-    static let bodyMedium = Font.system(size: 14, weight: .regular)
-    static let bodySmall = Font.system(size: 11, weight: .regular)
+    static let bodyLarge = Font.system(size: 19, weight: .regular)
+    static let bodyMedium = Font.system(size: 15, weight: .regular)
+    static let bodySmall = Font.system(size: 13, weight: .regular)
     
     // Button Styles
-    static let buttonLarge = Font.system(size: 11, weight: .bold)
-    static let buttonMedium = Font.system(size: 9, weight: .bold)
+    static let buttonLarge = Font.system(size: 15, weight: .bold)
+    static let buttonMedium = Font.system(size: 11, weight: .bold)
     static let buttonSmall = Font.system(size: 8, weight: .bold)
     
     // Caption Styles
-    static let captionLarge = Font.system(size: 8, weight: .regular)
-    static let captionMedium = Font.system(size: 7, weight: .light)
-    static let captionSmall = Font.system(size: 6, weight: .light)
+    static let captionLarge = Font.system(size: 12, weight: .regular)
+    static let captionMedium = Font.system(size: 11, weight: .light)
+    static let captionSmall = Font.system(size: 9, weight: .light)
 }

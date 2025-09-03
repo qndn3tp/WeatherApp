@@ -13,9 +13,9 @@ struct LastYearWeatherView: View {
         VStack(alignment: .leading) {
             HStack(spacing: 6) {
                 Text("과거 날씨")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.titleSmall)
                 Text("작년 오늘의 날씨는?")
-                    .font(.system(size: 8, weight: .thin))
+                    .font(.captionSmall)
             }
             HStack(spacing: 15) {
                 HStack(spacing: 15) {
@@ -68,17 +68,17 @@ struct LastYearWeatherCard: View {
                 VStack(spacing: 4) {
                     /// 최고기온
                     Text("\(lastYearWeatherData.highTemp[dayIndex])°")
-                        .font(.system(size: 8))
+                        .font(.captionMedium)
                         .foregroundColor(.red)
                     
                     /// 최저기온
                     Text("\(lastYearWeatherData.lowTemp[dayIndex])°")
-                        .font(.system(size: 8))
+                        .font(.captionMedium)
                         .foregroundColor(.blue)
                     
                     /// 강수량
                     Text("\(lastYearWeatherData.rainAmount[dayIndex])mm")
-                        .font(.system(size: 6))
+                        .font(.captionSmall)
                         .foregroundColor(.green)
                 }
             }

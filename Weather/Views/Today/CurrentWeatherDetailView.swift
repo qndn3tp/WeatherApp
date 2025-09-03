@@ -45,11 +45,11 @@ struct CurrentWeatherDetailCard: View {
             
             /// 중간: 실제 값 (메인 정보)
             Text(weatherDetail.value)
-                .font(.buttonLarge)
+                .font(.buttonMedium)
             
             /// 하단: 라벨 (부가 설명)
             Text(weatherDetail.label)
-                .font(.captionMedium)
+                .font(.captionSmall)
         }
         .frame(width: 70, height: 80)
         .background(Color.black.opacity(0.03))
