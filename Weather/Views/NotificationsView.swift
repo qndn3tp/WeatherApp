@@ -48,7 +48,7 @@ struct NotificationsView: View {
                                     // 시간 표시
                                     HStack(alignment: .firstTextBaseline, spacing: 11) {
                                         Text(notification.period)
-                                            .font(.system(size: 14, weight: .thin))
+                                            .font(.bodyMedium)
                                         Text(notification.time)
                                             .font(.system(size: 32, weight: .thin))
                                     }

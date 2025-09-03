@@ -51,9 +51,10 @@ struct HourlyWeatherChartView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         // 시간
                         Text("오늘")
-                            .font(.captionLarge)
+                            .font(.buttonMedium)
                             .foregroundColor(.white)
-                            .frame(width: 25, height: 18)
+                            .frame(height: 18)
+                            .padding(.horizontal, 7)
                             .background(.black.opacity(0.7))
                             .clipShape(Capsule())
                         
@@ -73,7 +74,7 @@ struct HourlyWeatherChartView: View {
                         // 강수량
                         HStack(spacing: 2) {
                             Text("강수량")
-                                .font(.bodySmall)
+                                .font(.buttonMedium)
                             Text("mm")
                                 .font(.captionSmall)
                         }
@@ -81,7 +82,7 @@ struct HourlyWeatherChartView: View {
                         // 습도
                         HStack(spacing: 2) {
                             Text("습도")
-                                .font(.bodySmall)
+                                .font(.buttonMedium)
                             Text("%")
                                 .font(.captionSmall)
                         }
@@ -93,7 +94,7 @@ struct HourlyWeatherChartView: View {
                         VStack(spacing: 10) {
                             // 시간
                             Text("\(hourlyWeatherData.hour[index])시")
-                                .font(.captionLarge)
+                                .font(.buttonMedium)
                                 .frame(height: 18)
 
                             // 날씨 아이콘
@@ -109,7 +110,7 @@ struct HourlyWeatherChartView: View {
 
                             // 강수확률
                             Text("\(hourlyWeatherData.hourlyRainPop[index])%")
-                                .font(.captionLarge)
+                                .font(.captionSmall)
                                 .frame(height: 6)
 
                             // 강수량
