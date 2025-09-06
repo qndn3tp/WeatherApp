@@ -31,16 +31,9 @@ struct WeeklyView: View {
             
             // 상단: 주간 날씨 코멘트
             WeeklyWeatherCommentView()
-                .padding(.horizontal, 40)
-                .padding(.vertical, 20)
             
             // 중간: 주간 날씨 데이터 차트
-            VStack(alignment: .leading, spacing: 10) {
-                Text("주간 날씨")
-                    .font(.titleSmall)
-                    .padding(.top, 15)
-                WeeklyWeatherView()
-            }
+            WeeklyWeatherView()
             
             // 하단: 주간 날씨 유용한 정보
             VStack(alignment: .leading, spacing: 10) {

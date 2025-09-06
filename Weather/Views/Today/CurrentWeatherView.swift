@@ -49,6 +49,7 @@ struct CurrentWeatherView: View {
                     Text(currentWeatherData.weatherComments.joined(separator: ", "))
                         .font(.system(size: 11))
                         .fixedSize(horizontal: true, vertical: false)
+                        .foregroundStyle(.textSecondary)
                     Image("icon_logo_bee")
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -67,7 +68,7 @@ struct CurrentWeatherView: View {
                         .foregroundColor(.gray)
                     Text(currentWeatherData.weatherCondition)
                         .font(.bodySmall)
-                        .foregroundColor(.gray)
+                        .foregroundStyle(.textTertiary)
                 }
                 
                 // 하단: 현재온도, 부가 정보 (어제 비교, 최고/최저 온도)
@@ -75,10 +76,13 @@ struct CurrentWeatherView: View {
                     /// 현재 온도
                     Text("\(currentWeatherData.mainTemp)°")
                         .font(.weatherLarge)
+                        .foregroundStyle(.textPrimary)
                     
                     ///어제 온도와 비교
                     Text(tempDifferenceComment)
                         .font(.bodySmall)
+                        .foregroundStyle(.textTertiary)
+                    
                     /// 최고/최저 온도
                     HStack(alignment: .bottom, spacing: 2) {
                         Text("최고").font(.bodySmall)
@@ -86,6 +90,7 @@ struct CurrentWeatherView: View {
                         Text("최저").font(.bodySmall)
                         Text("\(currentWeatherData.lowTemp)°").font(.bodyMedium)
                     }
+                    .foregroundStyle(.textSecondary)
                 }
             }
         }
@@ -102,4 +107,8 @@ struct CurrentWeather {
     let highTemp: Int
     let lowTemp: Int
     let weatherComments: [String]  /// 코멘트 (예: "오늘 외출하기 좋아요!")
+    
+    // TODO: computed property로 매핑
+    //    var weatherIcon: String { /* 매핑 로직 */ }
+    //    var weatherComments: [String] { /* 매핑 로직 */ }
 }
