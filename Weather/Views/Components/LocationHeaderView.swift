@@ -19,6 +19,7 @@ struct LocationHeaderView: View {
             if locationViewModel.shouldShowLocationInfo {
                 VStack {
                     HStack(spacing: 5) {
+                        // 위치
                         Image("icon_location_pin")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -26,14 +27,17 @@ struct LocationHeaderView: View {
                         
                         Text(locationViewModel.cityName ?? "")
                             .font(.headlineLarge)
+                            .foregroundStyle(.textPrimary)
                     }
-                    
+                    // 시간
                     Text(locationViewModel.currentTime ?? "")
                         .font(.bodyLarge)
+                        .foregroundStyle(.textTertiary)
                 }
             } else {
                 Text(locationViewModel.statusMessage)
                     .font(.headlineLarge)
+                    .foregroundStyle(.textPrimary)
             }
             
             Spacer()

@@ -33,6 +33,7 @@ struct WeeklyWeatherCommentView: View {
                 ForEach(weeklyWeatherComment.comments, id: \.self) { comment in
                     Text(comment)
                         .font(.bodySmall)
+                        .foregroundStyle(.textSecondary)
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
                 }
@@ -40,7 +41,7 @@ struct WeeklyWeatherCommentView: View {
             .frame(width: 200)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-            .background(.white)
+            .background(.backgroundPrimary)
             .clipShape(
                 .rect(
                     topLeadingRadius: 10,
@@ -50,6 +51,8 @@ struct WeeklyWeatherCommentView: View {
                 )
             )
         }
+        .padding(.horizontal, 40)
+        .padding(.vertical, 20)
     }
 }
 
