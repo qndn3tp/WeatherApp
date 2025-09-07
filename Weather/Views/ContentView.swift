@@ -10,14 +10,15 @@ import SwiftUI
 struct ContentView: View {
     // MARK: - Properties
     @ObservedObject var locationManager: LocationManager
+    @Environment(\.scenePhase) private var scenePhase
     
     enum Tab {
-        case location
-        case home
-        case settings
+        case weekly
+        case today
+        case notifications
     }
     
-    @State private var selectedTab: Tab = .home
+    @State private var selectedTab: Tab = .today
     
     // MARK: - Body
     var body: some View {
@@ -28,7 +29,7 @@ struct ContentView: View {
                     Image(systemName: "location")
                     Text("Weekly")
                 }
-                .tag(Tab.location)
+                .tag(Tab.weekly)
             
             // 오늘 날씨 뷰
             TodayView(locationManager: locationManager)
@@ -36,7 +37,7 @@ struct ContentView: View {
                     Image(systemName: "house")
                     Text("Today")
                 }
-                .tag(Tab.home)
+                .tag(Tab.today)
             
             // 알림 설정 뷰
             NotificationsView()
@@ -44,7 +45,15 @@ struct ContentView: View {
                     Image(systemName: "gearshape")
                     Text("Notifications")
                 }
-                .tag(Tab.settings)
+                .tag(Tab.notifications)
+        }
+        // 앱 생명주기 관리
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                locationManager.resumeServices()
+            } else if newPhase == .background {
+                locationManager.pauseServices()
+            }
         }
     }
 }
