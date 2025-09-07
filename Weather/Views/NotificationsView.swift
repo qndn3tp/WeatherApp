@@ -11,26 +11,11 @@ import SwiftUI
 struct NotificationsView: View {
     // MARK: Properties
     
-    // 알림 더미 데이터
-    @State private var notifications = [
-        NotificationData(period: "오전", time: "7:00", label: "출근 전, 주중", isOn: true),
-        NotificationData(period: "오후", time: "9:00", label: "퇴근 후, 내일 준비", isOn: false)
-    ]
-    
-    // 알림 삭제(스와이프)
-    func deleteNotification(at offsets: IndexSet) {
-        withAnimation {
-            notifications.remove(atOffsets: offsets)
-        }
-    }
+    // 알림매니저 - 알림 데이터 관리
+    @StateObject private var notificationManager = NotificationManager()
     
     // 알림 추가 sheet
     @State private var showingAddNotification = false
-    
-    // 알림 추가
-    func addNotification() {
-        showingAddNotification = true
-    }
     
     // MARK: - Body
     var body: some View {
@@ -42,7 +27,7 @@ struct NotificationsView: View {
                     // 알림 헤더
                     Section {
                         // 알림 리스트
-                        ForEach(Array(notifications.enumerated()), id: \.offset) { index, notification in
+                        ForEach(Array(notificationManager.notifications.enumerated()), id: \.offset) { index, notification in
                             HStack {
                                 VStack(alignment: .leading, spacing: 3) {
                                     // 시간 표시
@@ -57,19 +42,31 @@ struct NotificationsView: View {
                                         .font(.captionMedium)
                                 }
                                 Spacer()
-                                // 토글 스위치
-                                Toggle("", isOn: $notifications[index].isOn)
+                                // 토글 스위치 (알림 상태 업데이트)
+                                Toggle("", isOn: Binding(
+                                    get: {
+                                        notification.isOn
+                                    },
+                                    set: { newValue in
+                                        notificationManager.updateNotificationStatus(at: index, isOn: newValue)
+                                    }
+                                ))
                             }
                         }
-                        .onDelete(perform: deleteNotification) // 스와이프 삭제
+                        // 알림 삭제
+                        .onDelete { offsets in
+                            notificationManager.deleteNotification(at: offsets)
+                        }
                     }
                     .listRowBackground(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
                     
                 }
                 .navigationTitle("알림")
+                
+                // 알림 추가 sheet
                 .sheet(isPresented: $showingAddNotification) {
                     AddNotificationView { newNotification in
-                        notifications.append(newNotification)
+                        notificationManager.addNotification(newNotification)
                     }
                 }
                 // 편집, 추가
@@ -78,7 +75,9 @@ struct NotificationsView: View {
                         EditButton()
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: addNotification, label: {
+                        Button(action: {
+                            showingAddNotification = true
+                        }, label: {
                             Image(systemName: "plus")
                         })
                     }
@@ -91,16 +90,23 @@ struct NotificationsView: View {
     }
 }
 
-
-// MARK: - 알림데이터 구조
-struct NotificationData: Identifiable {
-    let id = UUID()
+// MARK: - 알림 데이터 구조
+struct NotificationData: Identifiable, Codable {
+    let id: UUID
     let period: String
     let time: String
     let label: String
     var isOn: Bool
+        
+    // 기본 생성자
+    init(period: String, time: String, label: String, isOn: Bool) {
+        self.id = UUID()
+        self.period = period
+        self.time = time
+        self.label = label
+        self.isOn = isOn
+    }
 }
-
 
 // MARK: - Preview
 #Preview {
