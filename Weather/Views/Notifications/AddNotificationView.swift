@@ -72,7 +72,7 @@ struct AddNotificationView: View {
         }
     }
     
-    // MARK: - 알람 저장 함수
+    // MARK: - 알림 저장 함수
     private func saveNotification() {
         // 1. 선택된 시간(Date)을 NotificationData 형태로 변환
         let newNotification = createNotificationData(from: selectedTime)
