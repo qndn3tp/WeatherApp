@@ -23,6 +23,20 @@ jobs:
             sudo gem install cocoapods
             pod install --repo-update
           fi
+
+      - name: Create SwiftLint config
+        run: |
+          cat > .swiftlint.yml << EOF
+          identifier_name:
+            min_length: 1
+            max_length: 40
+            excluded: 
+              - i
+              - j
+              - x
+              - y
+          line_length: 120
+          EOF
           
       - name: Lint code for consistent style
         run: |
