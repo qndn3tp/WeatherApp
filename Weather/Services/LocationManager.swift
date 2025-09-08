@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-import UIKit
 
 // MARK: - 위치 관리자: 위치, 시간 관리
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
