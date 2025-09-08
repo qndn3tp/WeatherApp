@@ -21,24 +21,33 @@ struct TodayView: View {
         self.locationManager = locationManager
         self._locationViewModel = StateObject(wrappedValue: LocationViewModel(locationManager: locationManager))
     }
-        
+    
     // MARK: - Body
     var body: some View {
-        ScrollView {
-            // 현재 위치 및 시간 정보
-            LocationHeaderView(locationViewModel: locationViewModel)
-
-            // 현재 날씨 정보
-            CurrentWeatherView()
-
-            // 현재 날씨 부가정보
-            CurrentWeatherDetailView()
-            
-            // 시간대별 날씨 정보
-            HourlyWeatherChartView()
-            
-            // 과거 날씨(작년)
-            LastYearWeatherView()
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 20) {
+                    // 현재 위치 및 시간 정보
+                    LocationHeaderView(locationViewModel: locationViewModel)
+                    
+                    // 현재 날씨 정보
+                    CurrentWeatherView()
+                        .frame(
+                            width: geometry.size.width,
+                            height: 200  // 🔧 명시적 크기 지정
+                        )
+                    
+                    // 현재 날씨 부가정보
+                    CurrentWeatherDetailView()
+                    
+                    // 시간대별 날씨 정보
+                    HourlyWeatherChartView()
+                        .frame(width: geometry.size.width)  // 🔧 전체 너비 보장
+                    
+                    // 과거 날씨(작년)
+                    LastYearWeatherView()
+                }
+            }
         }
         .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
     }

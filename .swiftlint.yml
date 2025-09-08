@@ -1,0 +1,8 @@
+identifier_name:
+  min_length: 1
+  max_length: 40
+  excluded: 
+    - i
+    - j
+    - x
+    - y
