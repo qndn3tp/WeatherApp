@@ -32,9 +32,7 @@ struct TodayView: View {
                     
                     // 현재 날씨 정보
                     CurrentWeatherView()
-                        .frame(
-                            width: geometry.size.width,
-                        )
+                        .frame(width: geometry.size.width)
                     
                     // 현재 날씨 부가정보
                     CurrentWeatherDetailView()
