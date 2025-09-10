@@ -67,19 +67,18 @@ struct LastYearWeatherCard: View {
             // 날씨 아이콘
             Image(systemName: lastYearWeatherData.icons[dayIndex])
                 .font(.system(size: 20))
-                .foregroundColor(.gray)
             
             // 기온 정보
-            VStack(spacing: 0) {
+            VStack(spacing: 3) {
                 /// 최고기온
                 Text("\(lastYearWeatherData.highTemps[dayIndex])°")
                     .font(.captionMedium)
-                    .foregroundColor(.red)
+                    .foregroundColor(.textDanger)
                 
                 /// 최저기온
                 Text("\(lastYearWeatherData.lowTemps[dayIndex])°")
                     .font(.captionMedium)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.buttonPrimary)
                 
                 /// 강수량
                 Text("\(lastYearWeatherData.rainAmounts[dayIndex])mm")

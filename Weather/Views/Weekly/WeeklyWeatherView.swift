@@ -87,10 +87,10 @@ struct WeeklyWeatherView: View {
     
     // MARK: - Body
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 10) {
             Text("주간 날씨")
                 .font(.titleSmall)
+                .foregroundStyle(.textSecondary)
                 .padding(.top, 10)
             // 주간 날씨 데이터 표
             VStack(spacing: 5) {
@@ -186,7 +186,7 @@ struct WeeklyWeatherView: View {
                                 .font(.captionSmall)
                             Text("\(weeklyWeather.highTemp)°")
                                 .font(.buttonLarge)
-                                .foregroundColor(.borderDanger)
+                                .foregroundColor(.textDanger)
                         }
                         .frame(width: 70)
                     }
@@ -207,7 +207,6 @@ struct WeeklyWeatherView: View {
             }
             
         }
-        
     }
 }
 
