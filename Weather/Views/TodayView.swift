@@ -34,7 +34,6 @@ struct TodayView: View {
                     CurrentWeatherView()
                         .frame(
                             width: geometry.size.width,
-                            height: 200  // 🔧 명시적 크기 지정
                         )
                     
                     // 현재 날씨 부가정보
@@ -49,7 +48,7 @@ struct TodayView: View {
                 }
             }
         }
-        .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
+        .background(.surfacePrimary)
     }
 }
 

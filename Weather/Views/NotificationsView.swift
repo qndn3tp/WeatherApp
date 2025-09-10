@@ -23,6 +23,7 @@ struct NotificationsView: View {
             VStack {
                 Text("원하는 시간에 신속하게 날씨 정보를 받아보세요")
                     .font(.captionSmall)
+                    .foregroundStyle(.textTertiary)
                 List {
                     // 알림 헤더
                     Section {
@@ -34,14 +35,19 @@ struct NotificationsView: View {
                                     HStack(alignment: .firstTextBaseline, spacing: 11) {
                                         Text(notification.period)
                                             .font(.bodyMedium)
+                                            .foregroundStyle(.textSecondary)
                                         Text(notification.time)
                                             .font(.system(size: 32, weight: .thin))
+                                            .foregroundStyle(.textSecondary)
                                     }
                                     // 알림 이름
                                     Text(notification.label)
                                         .font(.captionMedium)
+                                        .foregroundStyle(.textTertiary)
                                 }
+                                
                                 Spacer()
+                                
                                 // 토글 스위치 (알림 상태 업데이트)
                                 Toggle("", isOn: Binding(
                                     get: {
@@ -51,6 +57,7 @@ struct NotificationsView: View {
                                         notificationManager.updateNotificationStatus(at: index, isOn: newValue)
                                     }
                                 ))
+                                .tint(.buttonPrimary) 
                             }
                         }
                         // 알림 삭제
@@ -58,7 +65,7 @@ struct NotificationsView: View {
                             notificationManager.deleteNotification(at: offsets)
                         }
                     }
-                    .listRowBackground(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
+                    .listRowBackground(Color.surfacePrimary)
                     
                 }
                 .navigationTitle("알림")
@@ -84,7 +91,7 @@ struct NotificationsView: View {
                 }
                 .scrollContentBackground(.hidden) // List 기본 배경 숨기기
             }
-            .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
+            .background(.surfacePrimary)
             
         }
     }
@@ -97,7 +104,7 @@ struct NotificationData: Identifiable, Codable {
     let time: String
     let label: String
     var isOn: Bool
-        
+    
     // 기본 생성자
     init(period: String, time: String, label: String, isOn: Bool) {
         self.id = UUID()

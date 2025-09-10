@@ -24,7 +24,6 @@ struct CurrentWeatherDetailView: View {
                 CurrentWeatherDetailCard(weatherDetail: detail)
             }
         }
-        .padding(.horizontal, 32)
         .padding(.vertical, 15)
     }
 }
@@ -36,26 +35,25 @@ struct CurrentWeatherDetailCard: View {
     
     // MARK: - Body
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             /// 상단: 카테고리를 나타내는 아이콘
             Image(systemName: weatherDetail.icon)
                 .font(.system(size: 30))
-                .frame(width: 35, height: 35) // 정사각형 프레임
+                .frame(width: 30, height: 30) // 정사각형 프레임
                 .foregroundColor(weatherDetail.iconColor)
-                .padding(.bottom, 4)
             
             /// 중간: 실제 값 (메인 정보)
             Text(weatherDetail.value)
-                .font(.buttonMedium)
+                .font(.buttonLarge)
                 .foregroundStyle(.textSecondary)
             
             /// 하단: 라벨 (부가 설명)
             Text(weatherDetail.label)
-                .font(.captionSmall)
+                .font(.captionMedium)
                 .foregroundStyle(.textTertiary)
         }
         .frame(width: 70, height: 80)
-        .background(.textSecondary.opacity(0.05))
+        .background(ColorPalette.blue10)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }

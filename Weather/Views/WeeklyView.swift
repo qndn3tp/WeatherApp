@@ -39,13 +39,16 @@ struct WeeklyView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("유용한 정보")
                     .font(.titleSmall)
+                    .foregroundStyle(.textSecondary)
                     .padding(.top, 20)
                 Text("날씨에 따른 생활정보, 코디 팁 등 큐레이션")
-                    .font(.bodyMedium)
+                    .font(.titleSmall)
+                    .foregroundStyle(.textSecondary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 50)
         }
-        .padding(.horizontal, 20)
-        .background(Color(red: 0xF8 / 255, green: 0xFC / 255, blue: 0xFF / 255))
+        .background(.surfacePrimary)
     }
 }
 
