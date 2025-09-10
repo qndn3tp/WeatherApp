@@ -43,7 +43,7 @@ struct RainyAnimationView: View {
                updateRaindrops()
            }
        }
-       .background(.gray.opacity(0.1))
+//       .background(.gray.opacity(0.1))
    }
 
    /// 빗방울들을 화면에 랜덤하게 생성하는 함수

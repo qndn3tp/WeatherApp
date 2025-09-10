@@ -26,7 +26,8 @@ struct ContentView: View {
             // 주간 날씨 뷰
             WeeklyView(locationManager: locationManager)
                 .tabItem {
-                    Image(systemName: "location")
+                    Image("icon_tab_weekly")
+                        .renderingMode(.template)
                     Text("Weekly")
                 }
                 .tag(Tab.weekly)
@@ -34,7 +35,8 @@ struct ContentView: View {
             // 오늘 날씨 뷰
             TodayView(locationManager: locationManager)
                 .tabItem {
-                    Image(systemName: "house")
+                    Image("icon_tab_today")
+                        .renderingMode(.template)
                     Text("Today")
                 }
                 .tag(Tab.today)
@@ -42,10 +44,31 @@ struct ContentView: View {
             // 알림 설정 뷰
             NotificationsView()
                 .tabItem {
-                    Image(systemName: "gearshape")
+                    Image("icon_tab_notification")
+                        .renderingMode(.template)
                     Text("Notifications")
                 }
                 .tag(Tab.notifications)
+        }
+        // 탭바 색상 커스텀
+        .onAppear {
+            let appearance = UITabBarAppearance()
+            
+            // 모든 선택된 탭에 적용
+            appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.buttonPrimary)
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
+                .foregroundColor: UIColor(Color.buttonPrimary),
+                .font: UIFont.systemFont(ofSize: 11, weight: .bold)
+            ]
+            
+            // 모든 일반 탭에 적용
+            appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.textTertiary)
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
+                .foregroundColor: UIColor(Color.textTertiary),
+                .font: UIFont.systemFont(ofSize: 11, weight: .bold)
+            ]
+            
+            UITabBar.appearance().standardAppearance = appearance
         }
         // 앱 생명주기 관리
         .onChange(of: scenePhase) { _, newPhase in

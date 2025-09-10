@@ -37,10 +37,8 @@ struct CurrentWeatherDetailCard: View {
     var body: some View {
         VStack(spacing: 4) {
             /// 상단: 카테고리를 나타내는 아이콘
-            Image(systemName: weatherDetail.icon)
-                .font(.system(size: 30))
+            Image(weatherDetail.icon)
                 .frame(width: 30, height: 30) // 정사각형 프레임
-                .foregroundColor(weatherDetail.iconColor)
             
             /// 중간: 실제 값 (메인 정보)
             Text(weatherDetail.value)
@@ -69,19 +67,10 @@ enum CurrentWeatherDetailCategory: String, CaseIterable {
     
     var icon: String {
         switch self {
-        case .feelsLike: return "thermometer.variable"
-        case .humidity: return "humidity"
-        case .rainPop: return "umbrella"
-        case .fineDust: return "face.smiling"
-        }
-    }
-    
-    var iconColor: Color {
-        switch self {
-        case .feelsLike: return .red.opacity(0.5)
-        case .humidity: return .blue.opacity(0.5)
-        case .rainPop: return .gray.opacity(0.5)
-        case .fineDust: return .green.opacity(0.5)
+        case .feelsLike: return "icon_weather_detail_feelslike"
+        case .humidity: return "icon_weather_detail_humidity"
+        case .rainPop: return "icon_weather_detail_rainpop"
+        case .fineDust: return "icon_weather_detail_finedust"
         }
     }
 }
@@ -107,7 +96,6 @@ struct CurrentWeatherDetail {
     
     // computed properties
     var icon: String { category.icon }
-    var iconColor: Color { category.iconColor }
     var label: String { category.rawValue }
     
     var value: String {
