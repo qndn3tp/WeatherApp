@@ -53,12 +53,11 @@ struct WeatherWidgetEntryView : View {
                 SmallView(entry: entry)
             case .systemMedium:
                 MediumView(entry: entry)
-//            case .systemLarge:
-//                LargeView()
+            case .systemLarge:
+                LargeView(entry: entry)
             default:
-                Text("none")
+                SmallView(entry: entry)
             }
-//            SmallView(entry: entry)
         }
     }
 }
