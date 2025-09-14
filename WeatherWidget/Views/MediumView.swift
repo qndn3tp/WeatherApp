@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: 중간 크기 위젯 (4x2)
 struct MediumView: View {
     
     // MARK: - Properties
@@ -25,6 +26,7 @@ struct MediumView: View {
         icons: ["cloud.rain", "sun.max", "sun.max", "cloud.rain", "sun.max"]
     )
     
+    // MARK: - Body
     var body: some View {
         HStack(spacing: 11) {
             // 왼쪽: 현재 날씨
@@ -100,9 +102,8 @@ struct MediumView: View {
             }
         }
         .minimumScaleFactor(0.8)
-        .padding(.vertical, 15)
-        .padding(.trailing, 17)
-        .padding(.leading, 10)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 15)
     }
 }
 

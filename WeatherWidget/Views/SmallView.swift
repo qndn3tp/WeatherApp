@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-// MARK: 위젯 small view (2x2)
+// MARK: 작은 크기 위젯 (2x2)
 struct SmallView: View {
     
     // MARK: - Properties
