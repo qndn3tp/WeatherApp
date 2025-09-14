@@ -43,22 +43,22 @@ struct SimpleEntry: TimelineEntry {
 
 // 렌더링 되어 실제로 보여줄 뷰를 구성하는 구조체
 struct WeatherWidgetEntryView : View {
-//    @Environment(\.widgetFamily) var family: WidgetFamily
+    @Environment(\.widgetFamily) var family: WidgetFamily
     var entry: SimpleEntry
 
     var body: some View {
         VStack {
-//            switch family {
-//            case .systemSmall:
-//                SmallView()
-//            case .systemMedium:
-//                MediumView()
+            switch family {
+            case .systemSmall:
+                SmallView(entry: entry)
+            case .systemMedium:
+                MediumView(entry: entry)
 //            case .systemLarge:
 //                LargeView()
-//            default:
-//                Text("none")
-//            }
-            SmallView(entry: entry)
+            default:
+                Text("none")
+            }
+//            SmallView(entry: entry)
         }
     }
 }
