@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: 공통으로 사용되는 현재 날씨 뷰
 struct CurrentWeatherView: View {
     
+    // MARK: - Properties
     private enum Constants {
         static let iconSize: CGFloat = 15
         static let contentSpacing: CGFloat = 5
@@ -19,17 +20,13 @@ struct CurrentWeatherView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.contentSpacing) {
             // 상단: 날씨 아이콘, 위치
-            HStack(spacing: Constants.contentSpacing) {
+            HStack(spacing: 3) {
                 Image(systemName: "umbrella")
                     .font(.system(size: Constants.iconSize))
                     .padding(.trailing, 2)
                 
-                Text("정릉3동")
+                Text(SharedLocationData.shared.getCityName() ?? "위치 없음")
                     .font(.captionLarge)
-                    .foregroundColor(.textTertiary)
-                
-                Text("비")
-                    .font(.buttonMedium)
                     .foregroundColor(.textTertiary)
             }
             .padding(.bottom, Constants.contentSpacing)

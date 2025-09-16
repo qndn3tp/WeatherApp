@@ -84,6 +84,13 @@
 			);
 			target = 7991AE0D2E74780000D4BD54 /* WeatherWidgetExtension */;
 		};
+		794EA33B2E77E21A00C3FDEB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SharedLocationData.swift,
+			);
+			target = 792289A12E3A3FAC001B2919 /* Weather */;
+		};
 		7991AE222E74780100D4BD54 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -94,6 +101,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		794EA3352E77E11B00C3FDEB /* SharedData */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (794EA33B2E77E21A00C3FDEB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SharedData; sourceTree = "<group>"; };
 		7970FF632E4DA6DD00E9FE67 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		7977E0452E5C723400486EE0 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		7991AE122E74780000D4BD54 /* WeatherWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7991AE222E74780100D4BD54 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WeatherWidget; sourceTree = "<group>"; };
@@ -139,6 +147,7 @@
 		792289992E3A3FAC001B2919 = {
 			isa = PBXGroup;
 			children = (
+				794EA3352E77E11B00C3FDEB /* SharedData */,
 				7991AE242E74785700D4BD54 /* WeatherWidgetExtension.entitlements */,
 				792289A42E3A3FAC001B2919 /* Weather */,
 				792289B52E3A3FAD001B2919 /* WeatherTests */,
@@ -288,6 +297,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				794EA3352E77E11B00C3FDEB /* SharedData */,
 				7991AE122E74780000D4BD54 /* WeatherWidget */,
 			);
 			name = WeatherWidgetExtension;
