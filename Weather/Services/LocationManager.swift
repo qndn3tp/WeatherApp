@@ -22,7 +22,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var currentLocation: CLLocation?
-    @Published var cityName: String?
+    @Published var cityName: String? {
+        didSet {
+            // 값이 변경될 때마다 위젯 공유 저장소에 저장(위젯과 위치 공유)
+            SharedLocationData.shared.saveCityName(cityName)
+            print("도시 업데이트: \(cityName ?? "nil")")
+        }
+    }
     @Published var currentTime: String?
     @Published var isUpdatingLocation = false
     @Published var locationError: String?

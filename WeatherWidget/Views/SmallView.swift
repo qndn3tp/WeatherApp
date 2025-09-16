@@ -27,7 +27,7 @@ struct SmallView: View {
         }
         .lineLimit(1)
         .minimumScaleFactor(0.8)
-        .padding(.leading, 15)
+        .padding(.leading, 10)
         .padding(.trailing, 8)
     }
 }
