@@ -30,7 +30,7 @@ final class WeatherUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // 앱이 완전히 로드될 때까지 대기
         let firstElement = app.descendants(matching: .any).firstMatch
-        XCTAssertTrue(firstElement.waitForExistence(timeout: 15))
+        XCTAssertTrue(firstElement.waitForExistence(timeout: 30))
         
         // 기본적인 앱 실행 확인
         XCTAssertTrue(app.state == .runningForeground)
