@@ -27,23 +27,23 @@ struct CurrentWeatherView: View {
                 
                 Text(SharedLocationData.shared.getCityName() ?? "위치 없음")
                     .font(.captionLarge)
-                    .foregroundColor(.textTertiary)
+                    .foregroundStyle(.textTertiary)
             }
             .padding(.bottom, Constants.contentSpacing)
             
             // 중간: 메인 온도
             Text("26°")
                 .font(.weatherLarge)
-                .foregroundColor(.textPrimary)
+                .foregroundStyle(.textPrimary)
             
             // 하단 정보들: 날씨 비교, 최고최저온도
             Text("어제보다 1.8° ↓")
                 .font(.captionLarge)
-                .foregroundColor(.textTertiary)
+                .foregroundStyle(.textTertiary)
             
             Text("34° / 21°")
                 .font(.bodyMedium)
-                .foregroundColor(.textSecondary)
+                .foregroundStyle(.textSecondary)
         }
     }
 }

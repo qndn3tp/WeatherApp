@@ -74,7 +74,7 @@ struct LastYearWeatherCard: View {
             // 날짜
             Text(lastYearWeather?.date ?? "")
                 .font(.system(size: 8))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .padding(.horizontal, 5)
                 .padding(.vertical, 2)
                 .background(.black.opacity(0.6))
@@ -89,17 +89,17 @@ struct LastYearWeatherCard: View {
                 /// 최고기온
                 Text("\(lastYearWeather?.highTemp ?? 0)°")
                     .font(.captionMedium)
-                    .foregroundColor(.textDanger)
+                    .foregroundStyle(.textDanger)
                 
                 /// 최저기온
                 Text("\(lastYearWeather?.lowTemp ?? 0)°")
                     .font(.captionMedium)
-                    .foregroundColor(.buttonPrimary)
+                    .foregroundStyle(.buttonPrimary)
                 
                 /// 강수량
                 Text("\(lastYearWeather?.rainAmount ?? 0)mm")
                     .font(.captionSmall)
-                    .foregroundColor(.borderPrimary)
+                    .foregroundStyle(.borderPrimary)
             }
         }
     }

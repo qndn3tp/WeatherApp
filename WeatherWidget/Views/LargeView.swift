@@ -91,19 +91,19 @@ struct LargeView: View {
                             HStack(spacing: 5) {
                                 Text("\(weather.morningRainPop)%")
                                     .font(.buttonMedium)
-                                    .foregroundColor(.buttonPrimary)
+                                    .foregroundStyle(.buttonPrimary)
                                 Image(systemName: "\(weather.morningWeatherIcon)")
                                     .font(.system(size: 20))
-                                    .foregroundColor(.gray)
+                                    .foregroundStyle(.gray)
                             }
                             /// 오후
                             HStack(spacing: 5) {
                                 Image(systemName: "\(weather.afternoonWeatherIcon)")
                                     .font(.system(size: 20))
-                                    .foregroundColor(.gray)
+                                    .foregroundStyle(.gray)
                                 Text("\(weather.afternoonRainPop)%")
                                     .font(.buttonMedium)
-                                    .foregroundColor(.buttonPrimary)
+                                    .foregroundStyle(.buttonPrimary)
                             }
                         }
                         .frame(width: 140)
@@ -112,12 +112,12 @@ struct LargeView: View {
                         HStack(spacing: 4) {
                             Text("\(weather.lowTemp)°")
                                 .font(.buttonLarge)
-                                .foregroundColor(.buttonPrimary)
+                                .foregroundStyle(.buttonPrimary)
                             Text("/")
                                 .font(.captionSmall)
                             Text("\(weather.highTemp)°")
                                 .font(.buttonLarge)
-                                .foregroundColor(.textDanger)
+                                .foregroundStyle(.textDanger)
                         }
                         .frame(width: 70)
                     }

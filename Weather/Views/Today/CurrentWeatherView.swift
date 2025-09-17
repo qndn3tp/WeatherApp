@@ -35,7 +35,7 @@ struct CurrentWeatherView: View {
                             Image(systemName: currentWeatherData.weatherIcon)
                                 .resizable()
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(.gray)
+                                .foregroundStyle(.gray)
                             Text(currentWeatherData.weatherCondition)
                                 .font(.bodySmall)
                                 .foregroundStyle(.textTertiary)

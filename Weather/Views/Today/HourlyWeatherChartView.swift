@@ -134,7 +134,7 @@ struct LeftLabelView: View {
             // 시간
             Text("오늘")
                 .font(.buttonMedium)
-                .foregroundColor(.textInverse)
+                .foregroundStyle(.textInverse)
                 .frame(height: 18)
                 .padding(.horizontal, 7)
                 .background(.buttonSecondary)
@@ -157,30 +157,30 @@ struct LeftLabelView: View {
             HStack(spacing: 2) {
                 Text("강수량")
                     .font(.buttonMedium)
-                    .foregroundColor(.textSecondary)
+                    .foregroundStyle(.textSecondary)
                 Text("mm")
                     .font(.captionSmall)
-                    .foregroundColor(.textTertiary)
+                    .foregroundStyle(.textTertiary)
             }
             
             // 습도
             HStack(spacing: 2) {
                 Text("습도")
                     .font(.buttonMedium)
-                    .foregroundColor(.textSecondary)
+                    .foregroundStyle(.textSecondary)
                 Text("%")
                     .font(.captionSmall)
-                    .foregroundColor(.textTertiary)
+                    .foregroundStyle(.textTertiary)
             }
             
             // 바람
             HStack(spacing: 2) {
                 Text("바람")
                     .font(.buttonMedium)
-                    .foregroundColor(.textSecondary)
+                    .foregroundStyle(.textSecondary)
                 Text("m/s")
                     .font(.captionSmall)
-                    .foregroundColor(.textTertiary)
+                    .foregroundStyle(.textTertiary)
             }
         }
         .frame(width: 60)
