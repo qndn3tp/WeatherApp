@@ -23,7 +23,7 @@ struct CurrentWeatherDetailView: View {
                         .redacted(reason: .placeholder)
                 }
             } else {
-                // 2. 데이터가 있으면 원래대로 표시
+                // 2. 데이터 로딩 완료
                 ForEach(viewModel.weatherDetails, id: \.label) { item in
                     CurrentWeatherDetailCard(weatherDetailItem: item)
                 }
