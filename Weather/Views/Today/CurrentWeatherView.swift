@@ -11,116 +11,90 @@ import SwiftUI
 struct CurrentWeatherView: View {
     
     // MARK: - Properties 오늘 날씨 데이터
-    let currentWeatherData = CurrentWeather(
-        /// 메인 화면용 데이터
-        weatherCondition: "번개",
-        weatherIcon: "cloud.rain",
-        mainTemp: 26,
-        tempDiffFromYesterday: -2,
-        highTemp: 34,
-        lowTemp: 20,
-        weatherComments: ["심한 일교차", "겉옷은 필수!"]
-    )
-    
-    /// 어제와 날씨 비교 코멘트 로직
-    var tempDifferenceComment: String {
-        if currentWeatherData.tempDiffFromYesterday > 0 {
-            return "어제보다 \(currentWeatherData.tempDiffFromYesterday)° ↑"
-        } else if currentWeatherData.tempDiffFromYesterday < 0 {
-            return "어제보다 \(abs(currentWeatherData.tempDiffFromYesterday))° ↓"
-        } else {
-            return "어제와 비슷해요"
-        }
-    }
+    @StateObject private var viewModel = CurrentWeatherViewModel()
     
     // MARK: - Body
     var body: some View {
         ZStack {
-            // 애니메이션 백그라운드
-            WeatherAnimationBackground(weatherCondition: currentWeatherData.weatherCondition)
-            
-            HStack(spacing: 35) {
-                // 왼쪽: 아바타
-                Image("avatar")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 80, height: 220)
+            // 데이터가 있는 경우
+            if let currentWeatherData = viewModel.currentWeatherData {
+                // 애니메이션 백그라운드
+                WeatherAnimationBackground(weatherCondition: currentWeatherData.weatherCondition)
                 
-                // 오른쪽: 현재 날씨 정보
-                VStack(alignment: .trailing, spacing: 15) {
-                    // 상단: 날씨 아이콘과 상태
-                    HStack(spacing: 10) {
-                        Image(systemName: currentWeatherData.weatherIcon)
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.gray)
-                        Text(currentWeatherData.weatherCondition)
-                            .font(.bodySmall)
-                            .foregroundStyle(.textTertiary)
-                    }
+                HStack(spacing: 35) {
+                    // 왼쪽: 아바타
+                    Image("avatar")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 220)
                     
-                    // 중간: 현재온도, 부가 정보 (어제 비교, 최고/최저 온도)
-                    VStack(alignment: .trailing, spacing: 5) {
-                        /// 현재 온도
-                        Text("\(currentWeatherData.mainTemp)°")
-                            .font(.weatherLarge)
-                            .foregroundStyle(.textPrimary)
-                        
-                        ///어제 온도와 비교
-                        Text(tempDifferenceComment)
-                            .font(.bodySmall)
-                            .foregroundStyle(.textTertiary)
-                        
-                        /// 최고/최저 온도
-                        HStack(alignment: .bottom, spacing: 2) {
-                            Text("최고").font(.bodySmall)
-                            Text("\(currentWeatherData.highTemp)°").font(.bodyMedium)
-                            Text("최저").font(.bodySmall)
-                            Text("\(currentWeatherData.lowTemp)°").font(.bodyMedium)
+                    // 오른쪽: 현재 날씨 정보
+                    VStack(alignment: .trailing, spacing: 15) {
+                        // 상단: 날씨 아이콘과 상태
+                        HStack(spacing: 10) {
+                            Image(systemName: currentWeatherData.weatherIcon)
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.gray)
+                            Text(currentWeatherData.weatherCondition)
+                                .font(.bodySmall)
+                                .foregroundStyle(.textTertiary)
                         }
-                        .foregroundStyle(.textSecondary)
-                    }
-                    
-                    // 하단: 오늘 날씨 한줄 코멘트
-                    HStack(spacing: 5) {
-                        Text(currentWeatherData.weatherComments.joined(separator: ", "))
-                            .font(.system(size: 11))
-                            .fixedSize(horizontal: true, vertical: false)
+                        
+                        // 중간: 현재온도, 부가 정보 (어제 비교, 최고/최저 온도)
+                        VStack(alignment: .trailing, spacing: 5) {
+                            /// 현재 온도
+                            Text("\(currentWeatherData.mainTemp)°")
+                                .font(.weatherLarge)
+                                .foregroundStyle(.textPrimary)
+                            
+                            ///어제 온도와 비교
+                            Text(viewModel.tempDifferenceComment)
+                                .font(.bodySmall)
+                                .foregroundStyle(.textTertiary)
+                            
+                            /// 최고/최저 온도
+                            HStack(alignment: .bottom, spacing: 2) {
+                                Text("최고").font(.bodySmall)
+                                Text("\(currentWeatherData.highTemp)°").font(.bodyMedium)
+                                Text("최저").font(.bodySmall)
+                                Text("\(currentWeatherData.lowTemp)°").font(.bodyMedium)
+                            }
                             .foregroundStyle(.textSecondary)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background(.backgroundPrimary)
-                            .clipShape(
-                                .rect(
-                                    topLeadingRadius: 5,
-                                    bottomLeadingRadius: 5,
-                                    bottomTrailingRadius: 1,
-                                    topTrailingRadius: 5
+                        }
+                        
+                        // 하단: 오늘 날씨 한줄 코멘트
+                        HStack(spacing: 5) {
+                            Text(currentWeatherData.weatherComments.joined(separator: ", "))
+                                .font(.system(size: 11))
+                                .fixedSize(horizontal: true, vertical: false)
+                                .foregroundStyle(.textSecondary)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(.backgroundPrimary)
+                                .clipShape(
+                                    .rect(
+                                        topLeadingRadius: 5,
+                                        bottomLeadingRadius: 5,
+                                        bottomTrailingRadius: 1,
+                                        topTrailingRadius: 5
+                                    )
                                 )
-                            )
-                        Image("icon_logo_bee")
-                            .resizable()
-                            .frame(width: 30, height: 30)
+                            Image("icon_logo_bee")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                        }
                     }
                 }
+                .padding(.vertical, 20)
+            } else {
+                // TODO: 실패하는 경우 뷰 처리
+                // 데이터가 아직 없는 경우
+                ProgressView()
             }
-            .padding(.vertical, 20)
+        }
+        .task {
+            await viewModel.fetchCurrentWeather()
         }
     }
-}
-
-// MARK: - TodayWeather struct
-struct CurrentWeather {
-    // 메인 화면용 데이터
-    let weatherCondition: String   /// 현재 날씨 (예: "맑음")
-    let weatherIcon: String
-    let mainTemp: Int
-    let tempDiffFromYesterday: Int /// 어제와의 기온차이
-    let highTemp: Int
-    let lowTemp: Int
-    let weatherComments: [String]  /// 코멘트 (예: "오늘 외출하기 좋아요!")
-    
-    // TODO: computed property로 매핑
-    //    var weatherIcon: String { /* 매핑 로직 */ }
-    //    var weatherComments: [String] { /* 매핑 로직 */ }
 }
