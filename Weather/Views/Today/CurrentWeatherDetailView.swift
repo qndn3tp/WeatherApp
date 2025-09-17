@@ -9,108 +9,53 @@ import SwiftUI
 
 // MARK: - 현재 날씨 부가정보 뷰
 struct CurrentWeatherDetailView: View {
-    // MARK: - Initialization
-    let currentWeatherDetailsData: [CurrentWeatherDetail] = [
-        CurrentWeatherDetail(category: .feelsLike, intValue: 33),
-        CurrentWeatherDetail(category: .humidity, intValue: 40),
-        CurrentWeatherDetail(category: .rainPop, intValue: 50),
-        CurrentWeatherDetail(category: .fineDust, stringValue: "좋음")
-    ]
-
+    
+    // MARK: - Properties
+    @StateObject private var viewModel = CurrentWeatherDetailViewModel()
+    
     // MARK: - Body
     var body: some View {
         HStack(spacing: 15) {
-            ForEach(currentWeatherDetailsData, id: \.category) { detail in
-                CurrentWeatherDetailCard(weatherDetail: detail)
+            // 1. 데이터가 비어있다면, 스켈레톤 UI
+            if viewModel.weatherDetails.isEmpty {
+                ForEach(0..<4) { _ in
+                    CurrentWeatherDetailCard(weatherDetailItem: nil)
+                        .redacted(reason: .placeholder)
+                }
+            } else {
+                // 2. 데이터가 있으면 원래대로 표시
+                ForEach(viewModel.weatherDetails, id: \.label) { item in
+                    CurrentWeatherDetailCard(weatherDetailItem: item)
+                }
             }
         }
         .padding(.vertical, 15)
+        .task {
+            await viewModel.fetchCurrentWeatherDetails()
+        }
     }
 }
 
 // MARK: - 현재 날씨 부가정보 카드 뷰
 struct CurrentWeatherDetailCard: View {
-    // MARK: - Properties
-    let weatherDetail: CurrentWeatherDetail
+    let weatherDetailItem: CurrentWeatherDetailItem?
     
-    // MARK: - Body
     var body: some View {
         VStack(spacing: 4) {
-            /// 상단: 카테고리를 나타내는 아이콘
-            Image(weatherDetail.icon)
-                .frame(width: 30, height: 30) // 정사각형 프레임
+            // 옵셔널 체이닝을 사용해 nil일 경우 기본값을 보여줍니다.
+            Image(weatherDetailItem?.icon ?? "questionmark.circle")
+                .frame(width: 30, height: 30)
             
-            /// 중간: 실제 값 (메인 정보)
-            Text(weatherDetail.value)
+            Text(weatherDetailItem?.formattedValue ?? "")
                 .font(.buttonLarge)
                 .foregroundStyle(.textSecondary)
             
-            /// 하단: 라벨 (부가 설명)
-            Text(weatherDetail.label)
+            Text(weatherDetailItem?.label ?? "")
                 .font(.captionMedium)
                 .foregroundStyle(.textTertiary)
         }
         .frame(width: 70, height: 80)
         .background(ColorPalette.blue10)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-}
-
-// MARK: - 현재 날씨 부가정보 카테고리 열거형
-enum CurrentWeatherDetailCategory: String, CaseIterable {
-    case feelsLike = "체감온도"
-    case humidity = "습도"
-    case rainPop = "강수확률"
-    case fineDust = "미세먼지"
-    
-    var id: String { rawValue }
-    
-    var icon: String {
-        switch self {
-        case .feelsLike: return "icon_weather_detail_feelslike"
-        case .humidity: return "icon_weather_detail_humidity"
-        case .rainPop: return "icon_weather_detail_rainpop"
-        case .fineDust: return "icon_weather_detail_finedust"
-        }
-    }
-}
-
-// MARK: - 현재 날씨 부가정보 struct
-struct CurrentWeatherDetail {
-    let category: CurrentWeatherDetailCategory
-    private let intValue: Int?
-    private let stringValue: String?
-    
-    // 생성자들
-    init(category: CurrentWeatherDetailCategory, intValue: Int) {
-        self.category = category
-        self.intValue = intValue
-        self.stringValue = nil
-    }
-    
-    init(category: CurrentWeatherDetailCategory, stringValue: String) {
-        self.category = category
-        self.intValue = nil
-        self.stringValue = stringValue
-    }
-    
-    // computed properties
-    var icon: String { category.icon }
-    var label: String { category.rawValue }
-    
-    var value: String {
-        if let intValue = intValue {
-            switch category {
-            case .feelsLike:
-                return "\(intValue)°"
-            case .humidity, .rainPop:
-                return "\(intValue)%"
-            case .fineDust:
-                return "\(intValue)"
-            }
-        } else if let stringValue = stringValue {
-            return stringValue
-        }
-        return ""
     }
 }
