@@ -5,9 +5,9 @@
 //  Created by 김건혜 on 9/17/25.
 //
 
-// ViewModels/HourlyWeatherChartViewModel.swift
 import Foundation
 
+// MARK: - Today 뷰의 시간별 날씨 데이터
 @MainActor
 class HourlyWeatherChartViewModel: ObservableObject {
     
