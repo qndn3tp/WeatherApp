@@ -156,22 +156,22 @@ struct WeeklyWeatherView: View {
                             HStack(spacing: 10) {
                                 Text("\(weeklyWeather.morningRainPop)%")
                                     .font(.buttonMedium)
-                                    .foregroundColor(.buttonPrimary)
+                                    .foregroundStyle(.buttonPrimary)
                                     .frame(width: 30)
                                 Image(systemName: "\(weeklyWeather.morningWeatherIcon)")
                                     .font(.system(size: 20))
-                                    .foregroundColor(.gray)
+                                    .foregroundStyle(.gray)
                                     .frame(width: 20)
                             }
                             /// 오후
                             HStack(spacing: 10) {
                                 Image(systemName: "\(weeklyWeather.afternoonWeatherIcon)")
                                     .font(.system(size: 20))
-                                    .foregroundColor(.gray)
+                                    .foregroundStyle(.gray)
                                     .frame(width: 20)
                                 Text("\(weeklyWeather.afternoonRainPop)%")
                                     .font(.buttonMedium)
-                                    .foregroundColor(.buttonPrimary)
+                                    .foregroundStyle(.buttonPrimary)
                                     .frame(width: 30)
                             }
                         }
@@ -181,12 +181,12 @@ struct WeeklyWeatherView: View {
                         HStack(spacing: 4) {
                             Text("\(weeklyWeather.lowTemp)°")
                                 .font(.buttonLarge)
-                                .foregroundColor(.buttonPrimary)
+                                .foregroundStyle(.buttonPrimary)
                             Text("/")
                                 .font(.captionSmall)
                             Text("\(weeklyWeather.highTemp)°")
                                 .font(.buttonLarge)
-                                .foregroundColor(.textDanger)
+                                .foregroundStyle(.textDanger)
                         }
                         .frame(width: 70)
                     }

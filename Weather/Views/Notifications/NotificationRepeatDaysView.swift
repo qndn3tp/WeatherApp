@@ -30,7 +30,7 @@ struct NotificationRepeatDaysView: View {
                     toggleDay(index)
                 }) {
                     Text(weekdays[index])
-                        .foregroundColor(selectedDays.contains(index) ? .white : .primary)
+                        .foregroundStyle(selectedDays.contains(index) ? .white : .primary)
                         .frame(width: 40, height: 40)
                         .background(selectedDays.contains(index) ? .black : .clear)
                         .clipShape(Circle())

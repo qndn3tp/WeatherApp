@@ -78,7 +78,7 @@ struct MediumView: View {
                             // 날짜
                             Text("\(hourlyWeather.hours[index])시")
                                 .font(.buttonSmall)
-                                .foregroundColor(.textSecondary)
+                                .foregroundStyle(.textSecondary)
                             
                             // 날씨 아이콘
                             Image(systemName: hourlyWeather.icons[index])
@@ -92,7 +92,7 @@ struct MediumView: View {
                             Text(hourlyWeather.rainAmounts[index] == 0 ? "-"
                                  : "\(hourlyWeather.rainAmounts[index])mm")
                             .font(.captionSmall)
-                            .foregroundColor(.borderPrimary)
+                            .foregroundStyle(.borderPrimary)
                         }
                         .frame(maxWidth: .infinity)
                     }
