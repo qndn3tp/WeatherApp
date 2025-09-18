@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Today 뷰에 사용되는 현재 날씨 디테일 데이터(체감온도, 습도, 강수확률, 미세먼지)
+// MARK: - Today 뷰의 현재 날씨 디테일 데이터(체감온도, 습도, 강수확률, 미세먼지)
 @MainActor
 class CurrentWeatherDetailViewModel: ObservableObject {
     

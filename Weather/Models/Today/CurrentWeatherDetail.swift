@@ -5,7 +5,7 @@
 //  Created by 김건혜 on 9/17/25.
 //
 
-// MARK: - Today 뷰에 사용되는 현재 날씨 부가정보 데이터
+// MARK: - Today 뷰의 현재 날씨 부가정보 데이터
 struct CurrentWeatherDetailDTO: Codable {
     let feelsLike: Int
     let humidity: Int

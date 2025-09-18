@@ -5,10 +5,10 @@
 //  Created by 김건혜 on 9/16/25.
 //
 
-// MARK: - Today 뷰에 사용되는 현재 날씨 데이터
 import Foundation
 
-@MainActor 
+// MARK: - Today 뷰의 현재 날씨 데이터
+@MainActor
 class CurrentWeatherViewModel: ObservableObject {
     
     @Published var currentWeatherData: CurrentWeather?

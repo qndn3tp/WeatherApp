@@ -10,18 +10,12 @@ import SwiftUI
 // MARK: - 주간 날씨 코멘트 뷰
 struct WeeklyWeatherCommentView: View {
     
-    // MARK: - Initialization
-    /// 주간 날씨 코멘트 초기화
-    let weeklyWeatherComment = WeeklyWeatherComment (
-        comments: [
-            "이번주는 평년(22.4~23.4)보다 기온이 높을 예정이고 평년 강수량(10.9~50.1mm)과 비슷하거나 높을 확률이 있어.",
-            "덥고 습한 한 주가 되겠지만, 좋은 일만 가득하길 바라!"
-        ]
-    )
+    // MARK: - Properties
+    @StateObject private var viewModel = WeeklyWeatherCommentViewModel()
     
     // MARK: - Body
     var body: some View {
-        HStack(alignment: .bottom, spacing: 33) {
+        HStack(alignment: .bottom, spacing: 25) {
             // 왼쪽: 아바타
             Image("icon_avatar_profile")
                 .resizable()
@@ -30,15 +24,24 @@ struct WeeklyWeatherCommentView: View {
             
             // 오른쪽: weekly 날씨 정보
             VStack(alignment: .leading, spacing: 0) {
-                ForEach(weeklyWeatherComment.comments, id: \.self) { comment in
-                    Text(comment)
+                if let comment = viewModel.weeklyWeatherComment {
+                    // 데이터가 있는 경우
+                    ForEach(comment.comments, id: \.self) { item in
+                        Text(item)
+                            .font(.bodySmall)
+                            .foregroundStyle(.textSecondary)
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.leading)
+                    }
+                } else {
+                    // 데이터가 비어있다면, 스켈레톤 UI
+                    Text("이번주 날씨에 대한 코멘트가 로딩 중입니다. \n 잠시만 기다려주세요. 첫 번째 날씨 코멘트 라인입니다. \n 두 번째 날씨 코멘트 라인입니다.")
                         .font(.bodySmall)
-                        .foregroundStyle(.textSecondary)
-                        .lineLimit(nil)
-                        .multilineTextAlignment(.leading)
+                        .redacted(reason: .placeholder)
                 }
             }
             .frame(width: 200)
+            .frame(minHeight: 80)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
             .background(.backgroundPrimary)
@@ -53,10 +56,8 @@ struct WeeklyWeatherCommentView: View {
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 20)
+        .task {
+            await viewModel.fetchWeeklyWeatherComment()
+        }
     }
-}
-
-// MARK: - 주간 날씨 코멘트 Data Model
-struct WeeklyWeatherComment {
-    let comments: [String]
 }

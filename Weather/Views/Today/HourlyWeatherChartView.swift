@@ -24,7 +24,7 @@ struct HourlyWeatherChartView: View {
             if viewModel.isLoading {
                 // 1. 데이터가 로딩중, 스켈레톤 UI
                 HStack(spacing: 0) {
-                    LeftLabelView()
+                    TodayLeftLabelView()
                     
                     Rectangle()
                         .fill(.borderTertiary)
@@ -50,7 +50,7 @@ struct HourlyWeatherChartView: View {
                 ZStack(alignment: .topLeading) {
                     HStack(spacing: 0) {
                         // 왼쪽 라벨 영역
-                        LeftLabelView()
+                        TodayLeftLabelView()
                         
                         // 세로 구분선
                         Rectangle()
@@ -128,7 +128,7 @@ struct HourlyWeatherChartView: View {
 }
 
 // MARK: - 왼쪽 라벨 뷰
-struct LeftLabelView: View {
+struct TodayLeftLabelView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // 시간

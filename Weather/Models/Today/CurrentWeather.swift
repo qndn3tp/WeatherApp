@@ -5,7 +5,7 @@
 //  Created by 김건혜 on 9/16/25.
 //
 
-// MARK: - Today 뷰에 사용되는 현재 날씨 데이터
+// MARK: - Today 뷰의 현재 날씨 데이터
 struct CurrentWeather: Codable {
     // 메인 화면용 데이터
     let weatherCondition: String   /// 현재 날씨 (예: "맑음")

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Today 뷰에 사용되는 작년 날씨 데이터
+// MARK: - Today 뷰의 작년 날씨 데이터
 @MainActor
 class LastYearWeatherViewModel: ObservableObject {
     
