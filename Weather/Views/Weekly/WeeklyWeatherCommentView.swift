@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - 주간 날씨 코멘트 뷰
 struct WeeklyWeatherCommentView: View {
     
+    // MARK: - Properties
     @StateObject private var viewModel = WeeklyWeatherCommentViewModel()
     
     // MARK: - Body
