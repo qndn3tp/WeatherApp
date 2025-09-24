@@ -34,6 +34,8 @@ struct LocationHeaderView: View {
                         .font(.bodyLarge)
                         .foregroundStyle(.textTertiary)
                 }
+            } else if locationViewModel.isLoading {
+                ProgressView()
             } else {
                 Text(locationViewModel.statusMessage)
                     .font(.headlineLarge)

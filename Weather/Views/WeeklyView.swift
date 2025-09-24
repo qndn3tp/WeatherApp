@@ -36,17 +36,7 @@ struct WeeklyView: View {
             WeeklyWeatherView()
             
             // 하단: 주간 날씨 유용한 정보
-            VStack(alignment: .leading, spacing: 10) {
-                Text("유용한 정보")
-                    .font(.titleSmall)
-                    .foregroundStyle(.textSecondary)
-                    .padding(.top, 20)
-                Text("날씨에 따른 생활정보, 코디 팁 등 큐레이션")
-                    .font(.titleSmall)
-                    .foregroundStyle(.textSecondary)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 50)
+            WeeklyTipView()
         }
         .background(.surfacePrimary)
     }

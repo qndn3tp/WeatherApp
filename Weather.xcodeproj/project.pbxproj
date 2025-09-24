@@ -102,6 +102,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		794EA3352E77E11B00C3FDEB /* SharedData */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (794EA33B2E77E21A00C3FDEB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SharedData; sourceTree = "<group>"; };
+		7970FCFC2E816EFF007445D1 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		7970FF632E4DA6DD00E9FE67 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		7977E0452E5C723400486EE0 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 		7991AE122E74780000D4BD54 /* WeatherWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7991AE222E74780100D4BD54 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WeatherWidget; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 		792289A42E3A3FAC001B2919 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				7970FCFC2E816EFF007445D1 /* Resources */,
 				792289A52E3A3FAC001B2919 /* WeatherApp.swift */,
 				79A8CF1C2E4257F300FA2E61 /* Weather.entitlements */,
 				7970FF632E4DA6DD00E9FE67 /* Views */,
@@ -237,6 +239,7 @@
 				7991AE1D2E74780100D4BD54 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				7970FCFC2E816EFF007445D1 /* Resources */,
 				7970FF632E4DA6DD00E9FE67 /* Views */,
 				7977E0452E5C723400486EE0 /* ViewModels */,
 				799C8E102E62DCF3005C851D /* DesignSystem */,
