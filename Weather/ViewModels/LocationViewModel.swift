@@ -29,6 +29,7 @@ class LocationViewModel: ObservableObject {
         setupSubscriptions()
     }
     
+    // MARK: - 함수
     private func setupSubscriptions() {
         // 권한 상태 구독
         locationManager.$authorizationStatus

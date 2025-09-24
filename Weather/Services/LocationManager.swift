@@ -168,14 +168,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // MARK: - 앱 생명주기 관리
     // 포그라운드
     func resumeServices() {
-        print("⏰ 포그라운드 진입 - 타이머 재시작")
+        print("⏰ 포그라운드 진입 - 위치, 타이머 재시작")
         startTimeUpdateTimer()
         startUpdatingLocation()
     }
     // 백그라운드/종료
     func pauseServices() {
-        print("⏰ 백그라운드 진입 - 타이머 정지")
-        timeUpdateTimer?.invalidate()
+        print("⏰ 백그라운드 진입 - 위치 정지")
+//        timeUpdateTimer?.invalidate()
         stopUpdatingLocation()
     }
     
