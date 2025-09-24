@@ -14,11 +14,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()                 // 도시 이름을 가져오기 위한 클래스
-    private lazy var timeFormatter: DateFormatter = {   // Time 포맷팅
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return formatter
-    }()
     
     @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var currentLocation: CLLocation?
@@ -29,12 +24,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             print("도시 업데이트: \(cityName ?? "nil")")
         }
     }
-    @Published var currentTime: String?
+
+    @Published var currentTime: Date?
     @Published var isUpdatingLocation = false
     @Published var locationError: String?
+    @Published var currentTimeZone: TimeZone?  // 현재 시간대 저장
     
     private var timeUpdateTimer: Timer?
-    private var currentTimeZone: TimeZone?  // 현재 시간대 저장
     
     // MARK: - Initializer
     override init() {
@@ -52,8 +48,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         // 기존 타이머 정리
         timeUpdateTimer?.invalidate()
         
-        // 15초마다 시간 업데이트
-        timeUpdateTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] _ in
+        // 1초마다 시간 업데이트
+        timeUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateCurrentTime()
         }
         
@@ -61,9 +57,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     // 시간 업데이트
     private func updateCurrentTime() {
-        timeFormatter.timeZone = currentTimeZone ?? .current
-        self.currentTime = timeFormatter.string(from: Date())
-        //        print("⏰ 시간 업데이트: \(self.currentTime ?? "")")
+        self.currentTime = Date()
     }
     
     // MARK: - 위치 업데이트
@@ -142,12 +136,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 
                 // 시간대 저장하고 시간 업데이트
                 if let timezone = placemark.timeZone {
-                    self.currentTimeZone = timezone  // 시간대 저장!
-                    self.updateCurrentTime()         // 즉시 시간 업데이트
+                    self.currentTimeZone = timezone 
+                    self.updateCurrentTime()     
                     print("📍 시간대 설정: \(timezone.identifier)")
                 } else {
                     self.currentTimeZone = nil
-                    self.currentTime = "시간 정보를 찾을 수 없음"
+                    self.currentTime = nil
                 }
                 
                 // 에러 초기화
