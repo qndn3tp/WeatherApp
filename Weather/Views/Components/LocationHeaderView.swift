@@ -30,9 +30,17 @@ struct LocationHeaderView: View {
                             .foregroundStyle(.textPrimary)
                     }
                     // 시간
-                    Text(locationViewModel.currentTime ?? "")
-                        .font(.bodyLarge)
-                        .foregroundStyle(.textTertiary)
+                    TimelineView(.periodic(from: .now, by: 1.0)) { context in
+                        // ViewModel이 제공하는 timeZone이 있을 때만 시간 표시
+                        if let timeZone = locationViewModel.timeZone {
+                            Text(context.date.formattedString(format: "h:mm a", for: timeZone))
+                        } else {
+                            // TimeZone 정보가 아직 없을 경우
+                            Text("--:--")
+                        }
+                    }
+                    .font(.bodyLarge)
+                    .foregroundStyle(.textTertiary)
                 }
             } else if locationViewModel.isLoading {
                 ProgressView()
