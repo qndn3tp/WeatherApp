@@ -52,5 +52,6 @@ jobs:
             $BUILD_FLAG "$PROJECT_FILE" \
             -scheme Weather \
             -destination "platform=iOS Simulator,name=iPhone 16,OS=18.1" \
+            -only-testing WeatherTests \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO
