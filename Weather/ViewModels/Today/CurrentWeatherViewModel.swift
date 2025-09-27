@@ -33,8 +33,8 @@ class CurrentWeatherViewModel: ObservableObject {
         
         // 메인 화면용 목업 데이터
         currentWeatherData = CurrentWeather(
-            weatherCondition: "번개",
-            weatherIcon: "cloud.rain",
+            weatherCondition: "맑음",
+//            weatherIcon: "cloud.rain",
             mainTemp: 26,
             tempDiffFromYesterday: -2,
             highTemp: 34,

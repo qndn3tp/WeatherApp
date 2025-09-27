@@ -32,10 +32,10 @@ struct CurrentWeatherView: View {
                     VStack(alignment: .trailing, spacing: 15) {
                         // 상단: 날씨 아이콘과 상태
                         HStack(spacing: 10) {
-                            Image(systemName: currentWeatherData.weatherIcon)
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundStyle(.gray)
+//                            Image(systemName: currentWeatherData.weatherIcon)
+//                                .resizable()
+//                                .frame(width: 20, height: 20)
+//                                .foregroundStyle(.gray)
                             Text(currentWeatherData.weatherCondition)
                                 .font(.bodySmall)
                                 .foregroundStyle(.textTertiary)

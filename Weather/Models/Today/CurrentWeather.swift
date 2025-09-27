@@ -9,7 +9,7 @@
 struct CurrentWeather: Codable {
     // 메인 화면용 데이터
     let weatherCondition: String   /// 현재 날씨 (예: "맑음")
-    let weatherIcon: String
+//    let weatherIcon: String
     let mainTemp: Int
     let tempDiffFromYesterday: Int /// 어제와의 기온차이
     let highTemp: Int
