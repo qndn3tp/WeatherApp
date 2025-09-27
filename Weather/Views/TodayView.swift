@@ -14,12 +14,12 @@ struct TodayView: View {
     @ObservedObject var locationManager: LocationManager
     
     /// 위치 관련 비즈니스 로직을 처리하는 ViewModel
-    @StateObject private var locationViewModel: LocationViewModel
-    
+    @StateObject private var viewModel: LocationViewModel
+        
     // MARK: - Initialization
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
-        self._locationViewModel = StateObject(wrappedValue: LocationViewModel(locationManager: locationManager))
+        self._viewModel = StateObject(wrappedValue: LocationViewModel(locationManager: locationManager))
     }
     
     // MARK: - Body
@@ -28,7 +28,7 @@ struct TodayView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     // 현재 위치 및 시간 정보
-                    LocationHeaderView(locationViewModel: locationViewModel)
+                    LocationHeaderView(viewModel: viewModel)
                     
                     // 현재 날씨 정보
                     CurrentWeatherView()
@@ -39,7 +39,7 @@ struct TodayView: View {
                     
                     // 시간대별 날씨 정보
                     HourlyWeatherChartView()
-                        .frame(width: geometry.size.width)  // 🔧 전체 너비 보장
+                        .frame(width: geometry.size.width)  // 전체 너비 보장
                     
                     // 과거 날씨(작년)
                     LastYearWeatherView()

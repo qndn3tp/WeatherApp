@@ -22,6 +22,11 @@ class LocationViewModel: ObservableObject {
     @Published var timeZone: TimeZone?   // 도시의 시간대
     @Published var isLoading = false     // 위치 정보 로딩
     @Published var errorMessage: String? // 권한 에러메세지
+    var isDay: Bool {
+        let timeZone = timeZone ?? TimeZone.current
+        let currentHour = Date().hour(for: timeZone)
+        return currentHour >= 6 && currentHour < 18
+    }
     
     // MARK: - Initialization
     init(locationManager: LocationManager) {

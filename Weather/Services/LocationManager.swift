@@ -10,8 +10,8 @@ import CoreLocation
 
 // MARK: - 위치 관리자: 위치, 시간 관리
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    // MARK: - Properties
     
+    // MARK: - Properties
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()                 // 도시 이름을 가져오기 위한 클래스
     
