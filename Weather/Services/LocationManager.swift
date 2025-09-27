@@ -10,13 +10,16 @@ import CoreLocation
 
 // MARK: - 위치 관리자: 위치, 시간 관리
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    // MARK: - Properties
     
+    // MARK: - Properties
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()                 // 도시 이름을 가져오기 위한 클래스
     
     @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var currentLocation: CLLocation?
+    @Published var isUpdatingLocation = false
+    @Published var locationError: String?
+    @Published var timeZone: TimeZone?  // 현재 위치의 시간대
     @Published var cityName: String? {
         didSet {
             // 값이 변경될 때마다 위젯 공유 저장소에 저장(위젯과 위치 공유)
@@ -24,14 +27,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             print("도시 업데이트: \(cityName ?? "nil")")
         }
     }
-
-    @Published var currentTime: Date?
-    @Published var isUpdatingLocation = false
-    @Published var locationError: String?
-    @Published var currentTimeZone: TimeZone?  // 현재 시간대 저장
-    
-    private var timeUpdateTimer: Timer?
-    
+        
     // MARK: - Initializer
     override init() {
         super.init()
@@ -39,25 +35,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyReduced // 배터리 효율을 위해 정확도를 낮춤
         authorizationStatus = locationManager.authorizationStatus
         locationManager.requestWhenInUseAuthorization()             // 앱 사용 중 위치 권한 요청
-        startTimeUpdateTimer()                                      // 시간 업데이트 타이머 시작
-    }
-    
-    // MARK: - 실시간 시간 업데이트
-    // 시간 업데이트 타이머
-    private func startTimeUpdateTimer() {
-        // 기존 타이머 정리
-        timeUpdateTimer?.invalidate()
-        
-        // 1초마다 시간 업데이트
-        timeUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateCurrentTime()
-        }
-        
-        updateCurrentTime()
-    }
-    // 시간 업데이트
-    private func updateCurrentTime() {
-        self.currentTime = Date()
     }
     
     // MARK: - 위치 업데이트
@@ -136,12 +113,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 
                 // 시간대 저장하고 시간 업데이트
                 if let timezone = placemark.timeZone {
-                    self.currentTimeZone = timezone 
-                    self.updateCurrentTime()     
+                    self.timeZone = timezone
                     print("📍 시간대 설정: \(timezone.identifier)")
                 } else {
-                    self.currentTimeZone = nil
-                    self.currentTime = nil
+                    self.timeZone = nil
                 }
                 
                 // 에러 초기화
@@ -162,20 +137,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // MARK: - 앱 생명주기 관리
     // 포그라운드
     func resumeServices() {
-        print("⏰ 포그라운드 진입 - 위치, 타이머 재시작")
-        startTimeUpdateTimer()
+        print("⏰ 포그라운드 진입 - 위치 재시작")
         startUpdatingLocation()
     }
     // 백그라운드/종료
     func pauseServices() {
         print("⏰ 백그라운드 진입 - 위치 정지")
-//        timeUpdateTimer?.invalidate()
         stopUpdatingLocation()
     }
     
     // MARK: - Deinitializer
     deinit {
-        timeUpdateTimer?.invalidate()
         NotificationCenter.default.removeObserver(self)
         locationManager.stopUpdatingLocation()
     }

@@ -14,20 +14,20 @@ struct WeeklyView: View {
     @ObservedObject var locationManager: LocationManager
     
     /// 위치 관련 비즈니스 로직을 처리하는 ViewModel
-    @StateObject private var locationViewModel: LocationViewModel
+    @StateObject private var viewModel: LocationViewModel
     
     // MARK: - Initialization
     /// 위치 관리자 초기화
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
-        self._locationViewModel = StateObject(wrappedValue: LocationViewModel(locationManager: locationManager))
+        self._viewModel = StateObject(wrappedValue: LocationViewModel(locationManager: locationManager))
     }
     
     // MARK: - Body
     var body: some View {
         ScrollView {
             // 현재 위치 및 시간 정보
-            LocationHeaderView(locationViewModel: locationViewModel)
+            LocationHeaderView(viewModel: viewModel)
             
             // 상단: 주간 날씨 코멘트
             WeeklyWeatherCommentView()

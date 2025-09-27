@@ -81,6 +81,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView(locationManager: LocationManager())
-}
+//#Preview {
+//    ContentView(locationManager: LocationManager())
+//}
